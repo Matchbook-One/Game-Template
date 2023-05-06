@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://codeception.org",
+  "type": "object",
+  "oneOf": [
+    {
+      "$ref": "#/definitions/Global"
+    },
+    {
+      "$ref": "#/definitions/Suite"
+    }
+  ],
+  "definitions": {
+    "Paths": {
+      "type": "object",
+      "properties": {
+        "tests": {
+          "type": "string",
+          "default": "tests"
+        },
+        "data": {
+          "default": "tests/_data",
+          "type": "string"
+        },
+        "support": {
+          "default": "tests/_support",
+          "type": "string"
+        },
+        "output": {
+          "default": "tests/_output",
+          "type": "string"
+        },
+        "envs": {
+          "type": "string",
+          "default": "tests/_envs"
+        }
+      }
+    },
+    "Global": {
+      "type": "object",
+      "properties": {
+        "paths": {
+          "$ref": "#/definitions/Paths"
+        },
+        "params": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Coverage": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "low_limit": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 35
+        },
+        "high_limit": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 70
+        },
+        "show_uncovered": {
+          "type": "boolean",
+          "default": false
+        },
+        "show_only_summary": {
+          "type": "boolean",
+          "default": false
+        },
+        "remote": {
+          "type": "boolean",
+          "default": false
+        },
+        "c3_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "cookie_domain": {
+          "type": "string"
+        },
+        "work_dir": {
+          "type": "string"
+        },
+        "remote_context_options": {
+          "type": "object",
+          "properties": {
+            "http": {
+              "type": "object",
+              "properties": {
+                "timeout": {
+                  "type": "number",
+                  "default": 30
+                }
+              }
+            },
+            "ssl": {
+              "type": "object",
+              "properties": {
+                "verify_peer": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Suite": {
+      "type": "object",
+      "properties": {
+        "actor": {
+          "type": "string",
+          "description": "Name of the “Actor” class of the current suite."
+        },
+        "bootstrap": {
+          "type": "string",
+          "description": "Bootstrap script that will be executed before current suite. A script should be put into suite directory."
+        },
+        "coverage": {
+          "$ref": "#/definitions/Coverage",
+          "description": "Per suite CodeCoverage settings."
+        },
+        "env": {
+          "type": "object",
+          "description": "Override any configuration per environment."
+        },
+        "error_level": {
+          "type": "string",
+          "default": "E_ALL & ~E_STRICT & ~E_DEPRECATED",
+          "description": "error level for runner in the current suite. Can be specified for unit, integration, functional tests. Passes value to error_reporting function."
+        },
+        "extends": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Allows you to specify a file (relative to *.suite.yml) that holds some already pre-defined values. This can be used to always use the same configuration for modules or whatever."
+        },
+        "gherkin": {
+          "type": "object",
+          "description": "Per suite Gherkin settings."
+        },
+        "groups": {
+          "type": "string",
+          "description": "groups with the list of tests of for corresponding group."
+        },
+        "formats": {
+          "type": "string",
+          "description": "formats with the list of extra test format classes."
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of enabled modules with their configuration."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Default namespace of actor, support classes and tests."
+        },
+        "suite_namespace": {
+          "type": "string",
+          "description": "Default namespace for new tests of this suite (ignores namespace option)"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "{{GAME}}",
+  "name": "{{GAME}}",
+  "description": "",
+  "keywords": [],
+  "version": "0.0.0",
+  "humhub": {
+    "minVersion": "1.18.0"
+  },
+  "screenshots": [],
+  "authors": [
+    {
+      "name": "{{USER_NAME}}",
+      "homepage": "{{USER_WEB}}"
+    }
+  ]
+}

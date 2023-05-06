@@ -1,0 +1,72 @@
+Codeception PHP Testing Framework v5.0.10 https://helpukrainewin.org
+[Seed] 171330232
+
+[1mFunctional Tests (0) [22m--------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+[1mUnit Tests (1) [22m--------------------------------------------------------------------------------------------------------------------------------------------------------
+- [35;1mCommentTest:[39;22m Class doc-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Fatal error: Uncaught Error: Class "Yii" not found in /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php:527
+Stack trace:
+#0 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php(115): Codeception\Lib\Connector\Yii2->closeSession()
+#1 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Module/Yii2.php(302): Codeception\Lib\Connector\Yii2->resetApplication()
+#2 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Module/Yii2.php(322): Codeception\Module\Yii2->configureClient(Array)
+#3 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Module/Yii2.php(327): Codeception\Module\Yii2->recreateClient()
+#4 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Subscriber/Module.php(70): Codeception\Module\Yii2->_before(Object(Codeception\Test\TestCaseWrapper))
+#5 /Users/christianseiler/repos/game-generator/vendor/symfony/event-dispatcher/EventDispatcher.php(206): Codeception\Subscriber\Module->before(Object(Codeception\Event\TestEvent), 'test.before', Object(Symfony\Component\EventDispatcher\EventDispatcher))
+#6 /Users/christianseiler/repos/game-generator/vendor/symfony/event-dispatcher/EventDispatcher.php(56): Symfony\Component\EventDispatcher\EventDispatcher->callListeners(Array, 'test.before', Object(Codeception\Event\TestEvent))
+#7 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Test/Test.php(296): Symfony\Component\EventDispatcher\EventDispatcher->dispatch(Object(Codeception\Event\TestEvent), 'test.before')
+#8 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Test/Test.php(149): Codeception\Test\Test->fire('test.before', Object(Codeception\Event\TestEvent))
+#9 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Suite.php(130): Codeception\Test\Test->realRun(Object(Codeception\ResultAggregator))
+#10 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/SuiteManager.php(148): Codeception\Suite->run(Object(Codeception\ResultAggregator))
+#11 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Codecept.php(260): Codeception\SuiteManager->run(Object(Codeception\ResultAggregator))
+#12 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Codecept.php(216): Codeception\Codecept->runSuite(Array, 'unit', NULL)
+#13 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Command/Run.php(646): Codeception\Codecept->run('unit')
+#14 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Command/Run.php(467): Codeception\Command\Run->runSuites(Array, Array)
+#15 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Command/Command.php(312): Codeception\Command\Run->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Application.php(1022): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Application.php(314): Symfony\Component\Console\Application->doRunCommand(Object(Codeception\Command\Run), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Application.php(168): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#19 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Application.php(112): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#20 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/app.php(45): Codeception\Application->run()
+#21 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/app.php(46): {closure}()
+#22 phar:///usr/local/bin/codecept/vendor/codeception/codeception/autoload.php(13): require('/Users/christia...')
+#23 phar:///usr/local/bin/codecept/vendor/codeception/codeception/app.php(3): require_once('phar:///usr/loc...')
+#24 /usr/local/bin/codecept(5): require_once('phar:///usr/loc...')
+#25 {main}
+  thrown in /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php on line 527
+
+
+
+FATAL ERROR. TESTS NOT FINISHED.
+Uncaught Error: Class "Yii" not found in /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php:527
+Stack trace:
+#0 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php(115): Codeception\Lib\Connector\Yii2->closeSession()
+#1 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Module/Yii2.php(302): Codeception\Lib\Connector\Yii2->resetApplication()
+#2 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Module/Yii2.php(322): Codeception\Module\Yii2->configureClient(Array)
+#3 /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Module/Yii2.php(327): Codeception\Module\Yii2->recreateClient()
+#4 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Subscriber/Module.php(70): Codeception\Module\Yii2->_before(Object(Codeception\Test\TestCaseWrapper))
+#5 /Users/christianseiler/repos/game-generator/vendor/symfony/event-dispatcher/EventDispatcher.php(206): Codeception\Subscriber\Module->before(Object(Codeception\Event\TestEvent), 'test.before', Object(Symfony\Component\EventDispatcher\EventDispatcher))
+#6 /Users/christianseiler/repos/game-generator/vendor/symfony/event-dispatcher/EventDispatcher.php(56): Symfony\Component\EventDispatcher\EventDispatcher->callListeners(Array, 'test.before', Object(Codeception\Event\TestEvent))
+#7 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Test/Test.php(296): Symfony\Component\EventDispatcher\EventDispatcher->dispatch(Object(Codeception\Event\TestEvent), 'test.before')
+#8 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Test/Test.php(149): Codeception\Test\Test->fire('test.before', Object(Codeception\Event\TestEvent))
+#9 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Suite.php(130): Codeception\Test\Test->realRun(Object(Codeception\ResultAggregator))
+#10 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/SuiteManager.php(148): Codeception\Suite->run(Object(Codeception\ResultAggregator))
+#11 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Codecept.php(260): Codeception\SuiteManager->run(Object(Codeception\ResultAggregator))
+#12 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Codecept.php(216): Codeception\Codecept->runSuite(Array, 'unit', NULL)
+#13 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Command/Run.php(646): Codeception\Codecept->run('unit')
+#14 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Command/Run.php(467): Codeception\Command\Run->runSuites(Array, Array)
+#15 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Command/Command.php(312): Codeception\Command\Run->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#16 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Application.php(1022): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#17 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Application.php(314): Symfony\Component\Console\Application->doRunCommand(Object(Codeception\Command\Run), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#18 /Users/christianseiler/repos/game-generator/vendor/symfony/console/Application.php(168): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#19 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/src/Codeception/Application.php(112): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#20 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/app.php(45): Codeception\Application->run()
+#21 /Users/christianseiler/repos/game-generator/vendor/codeception/codeception/app.php(46): {closure}()
+#22 phar:///usr/local/bin/codecept/vendor/codeception/codeception/autoload.php(13): require('/Users/christia...')
+#23 phar:///usr/local/bin/codecept/vendor/codeception/codeception/app.php(3): require_once('phar:///usr/loc...')
+#24 /usr/local/bin/codecept(5): require_once('phar:///usr/loc...')
+#25 {main}
+  thrown 
+in /Users/christianseiler/repos/game-generator/vendor/codeception/module-yii2/src/Codeception/Lib/Connector/Yii2.php:527

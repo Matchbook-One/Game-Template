@@ -1,0 +1,52 @@
+{
+  "name": "matchbook/game",
+  "description": "",
+  "keywords": [
+    "humhub",
+    "yii2",
+    "framework",
+    "matchbook",
+    "game",
+    "generator",
+    "template"
+  ],
+  "homepage": "https://www.fhnw.ch",
+  "type": "project",
+  "license": "AGPL-3.0-only",
+  "support": {
+    "issues": "https://github.com/humhub/humhub/issues?state=open",
+    "forum": "https://community.humhub.com",
+    "wiki": "https://community.humhub.com",
+    "source": "https://github.com/humhub/humhub"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.0.0",
+    "yiisoft/yii2": "~2.0.45"
+  },
+  "replace": {},
+  "require-dev": {
+    "codeception/codeception": "^5.0.0 || ^4.0",
+    "codeception/lib-innerbrowser": "^3.0 || ^1.1",
+    "codeception/module-asserts": "^3.0 || ^1.1",
+    "codeception/module-yii2": "^1.1",
+    "codeception/module-filesystem": "^3.0 || ^1.1",
+    "codeception/specify": "^2.0.0",
+    "codeception/verify": "^2.2",
+    "phpmd/phpmd": "@stable"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload-dev": {
+    "psr-4": {}
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  }
+}
