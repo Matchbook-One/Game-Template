@@ -27,7 +27,7 @@
   "replace": {},
   "require-dev": {
     "codeception/codeception": "^5.0.0 || ^4.0",
-    "codeception/lib-innerbrowser": "^3.0 || ^1.1",
+    "codeception/lib-innerbrowser": "^3.0 || ^1.1 || ^4.0",
     "codeception/module-asserts": "^3.0 || ^1.1",
     "codeception/module-yii2": "^1.1",
     "codeception/module-filesystem": "^3.0 || ^1.1",
