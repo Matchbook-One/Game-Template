@@ -34,9 +34,9 @@ jobs:
           chmod +x ./generate.sh && \
           ./generate.sh
 
-          # - run: node ./place-order.js
+        # - run: node ./place-order.js
 
-          # - name: Commit changes
+        # - name: Commit changes
         #   shell: bash
         #   run: |
         #     git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
