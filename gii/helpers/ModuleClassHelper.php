@@ -1,28 +1,31 @@
 <?php
+/**
+ * @link      https://www.humhub.org/
+ * @copyright Copyright (c) 2017 HumHub GmbH & Co. KG
+ * @license   https://www.humhub.com/licences
+ *
+ */
 
-namespace fhnw\gamecenter\gii\generators;
+namespace fhnw\gii\helpers;
 
+
+use fhnw\gii\generators\game\ModuleGenerator;
 use yii\base\Component;
 
-/**
- * @package GameGenerator
- */
 class ModuleClassHelper extends Component
 {
-
+  /** @var ModuleGenerator */
   public ModuleGenerator $root;
 
-  /**
-   * @return string[]
-   */
-  public function getIncludes(): array
+  public function getIncludes()
   {
     $result = [
-        'Yii',
-        'yii\helpers\Url'
+      'Yii',
+      'yii\helpers\Url'
     ];
 
     if ($this->root->isContentContainerModule()) {
+
       $result[] = 'humhub\modules\content\components\ContentContainerActiveRecord';
 
       if ($this->root->isSpaceModule) {
@@ -40,12 +43,12 @@ class ModuleClassHelper extends Component
 
   public function getNameSpace(): string
   {
-    return $this->root->getClassNamespace('Module');
+    return $this->root->getClassNamespace();
   }
 
-  public function getSuperClass(): string
+  /*public function getSuperClass()
   {
     return $this->root->isContentContainerModule() ? 'humhub\modules\content\components\ContentContainerModule' : 'humhub\components\Module';
-  }
+  }*/
 
 }

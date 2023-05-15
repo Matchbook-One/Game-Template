@@ -1,4 +1,4 @@
-import * as jQuery from 'jQuery'
+import * as $ from 'jQuery'
 
 declare namespace humhub {
 
@@ -100,6 +100,21 @@ declare namespace humhub {
     (moduleNS: string, lazy?: boolean): Module,
     (moduleNS: 'client', lazy?: boolean): ClientModule
     (moduleNS: 'event', lazy?: boolean): EventModule
+    (moduleNS: 'gamecenter', lazy?: boolean): GameCenter
+  }
+
+  class GameCenter {
+    constructor()
+
+    submitScore(moduleId: string, score: number): Promise<unknown>
+
+    startGame(moduleId: string): Promise<unknown>
+
+    endGame(moduleId: string): Promise<unknown>
+
+    report(moduleId: string, option: string, value: unknown): Promise<unknown>
+
+    share(moduleId: string, text: string): Promise<unknown>
   }
 
   /**
@@ -171,7 +186,7 @@ declare namespace humhub {
    * @function module:humhub.module
    * @access public
    * @param {string} id the namespaced id
-   * @param {(instance: Module, require: Require, $: JQuery) => void} moduleFunction
+   * @param {(instance: Module, require: Require, jQuery: $) => void} moduleFunction
    * @returns {void}
    *
    * ## Module Lifecycle
@@ -200,5 +215,5 @@ declare namespace humhub {
    *
    * @see https://docs.humhub.org/docs/develop/javascript-index#module-lifecycle
    */
-  type module = (id, moduleFunction: (module: Module, require: Require, $: typeof jQuery) => void) => void
+  type module = (id, moduleFunction: (module: Module, require: Require, jquery: typeof $) => void) => void
 }

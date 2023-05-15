@@ -1,22 +1,22 @@
 <?php
 
-use fhnw\generator\gii\generators\ModuleGenerator;
+use fhnw\gii\generators\game\ModuleGenerator;
 
 /* @var $generator ModuleGenerator */
 
 ?>
 <?= "<?php\n"; ?>
 
-namespace <?= $generator->getClassNamespace('assets'); ?>
+namespace <?= $generator->getClassNamespace('assets') ."\n"?>
 
 use fhnw\modules\gamecenter\assets\GameCenterAssets;
 use humhub\components\assets\AssetBundle;
 use yii\web\View;
 
 /**
- * The class <?= $generator->name ?>Asset
- */
-class <?= $generator->name ?>Asset extends AssetBundle
+* The class <?= $generator->getGameName() ?>Asset
+*/
+class <?= $generator->getGameName() ?>Asset extends AssetBundle
 {
 
   /** @var array $css */

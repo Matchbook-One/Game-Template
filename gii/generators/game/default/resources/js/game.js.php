@@ -1,6 +1,6 @@
 <?php
 /** @noinspection JSNonStrictModeUsed */
-use fhnw\generator\gii\generators\ModuleGenerator;
+use fhnw\gii\generators\game\ModuleGenerator;
 
 /* @var $generator ModuleGenerator */
 
@@ -21,9 +21,9 @@ humhub.module('<?= $generator->moduleID ?>', (module, req, $) => {
    * @param {number} player
    */
   function submitScore(score, player) {
-    const data = { id: module.id, score, player };
+    const data = {id: module.id, score, player};
 
-    gamecenter.submitScore({ data })
+    gamecenter.submitScore({data})
               .then((res) => {
                 // Do something with the result
               })
@@ -33,5 +33,5 @@ humhub.module('<?= $generator->moduleID ?>', (module, req, $) => {
               })
   }
 
-  module.export({ init })
+  module.export({init})
 });

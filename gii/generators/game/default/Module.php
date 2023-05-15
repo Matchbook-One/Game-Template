@@ -1,10 +1,13 @@
 <?php
-/**
- * @package {{GAME}}
- * @author  0o <{{EMAIL}}>
- */
 
-namespace {{NAMESPACE}};
+use fhnw\gii\generators\game\ModuleGenerator;
+
+/** @var ModuleGenerator $generator */
+
+
+echo "<?php\n\n";
+?>
+namespace <?= $generator->getClassNamespace() . "\n"?>
 
 use fhnw\modules\gamecenter\components\GameModule;
 use humhub\modules\content\components\ContentContainerActiveRecord;
@@ -15,47 +18,46 @@ use yii\helpers\Url;
 /**
  * @property-read string[] $contentContainerTypes
  * @property-read string   $configUrl
- * @phpstan-import-type GameConfig from GameModule
- * @phpstan-import-type AchievementConfig from GameModule
  */
-class {{GAME}}Module extends GameModule
+class <?= $generator->getModuleName() ?> extends GameModule
 {
   /**
-   * @phpstan-return AchievementConfig[]
+   * @inheritdoc
    * @return array
    */
   public function getAchievementConfig(): array
   {
     return [
-      // TODO: ['name' => 'first-game', 'title' => 'Win your first game', 'description' => 'Win your first game']
+      /* TODO: [
+        'name' => 'first-game',
+        'title' => 'Win your first game',
+        'description' => 'Win your first game'
+      ]*/
     ];
   }
 
   /**
    * @inheritdoc
    * @return string the url
-   * @noinspection PhpMissingParentCallCommonInspection
    */
   public function getConfigUrl(): string
   {
-    return Url::to(['/{{GAME}}/admin']);
+    return Url::to(['/<?= $generator->moduleID ?>/admin']);
   }
 
   /**
    * @inheritdoc
-   *
    * @param ContentContainerActiveRecord $container unused
    *
    * @return string
-   * @noinspection PhpMissingParentCallCommonInspection
    */
   public function getContentContainerDescription(ContentContainerActiveRecord $container): string
   {
-    return Yii::t('{{GAME}}Module.base', 'description');
+    return Yii::t('<?= $generator->getModuleName() ?>.base', 'description');
   }
 
   /**
-   * @inheritdoc
+  * @inheritdoc
    *
    * @param ContentContainerActiveRecord $container unused
    *
@@ -64,7 +66,7 @@ class {{GAME}}Module extends GameModule
    */
   public function getContentContainerName(ContentContainerActiveRecord $container): string
   {
-    return Yii::t('{{GAME}}Module.base', 'name');
+    return Yii::t('<?= $generator->getModuleName() ?>.base', 'name');
   }
 
   /**
@@ -84,8 +86,8 @@ class {{GAME}}Module extends GameModule
   public function getGameConfig()
   {
     return [
-      'title'       => '{{GAME}}',
-      'description' => 'The Game {{GAME}}'
+      'title'       => '<?= $generator->getModuleName() ?>',
+      'description' => 'The Game <?= $generator->getModuleName() ?>'
     ];
   }
 }
