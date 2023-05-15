@@ -1,41 +1,68 @@
 <?php
 
+use yii\helpers\StringHelper;
+use yii\symfonymailer\Mailer;
+
+$params = require __DIR__ . '/params.php';
+$db = require __DIR__ . '/db.php';
+$gii = require __DIR__ . '/gii.php';
+
 $config = [
-    'id' => 'basic',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+  'id'         => 'basic',
+  'basePath'   => dirname(__DIR__),
+  'bootstrap'  => ['log', 'gii'],
+  'aliases'    => [
+    '@bower' => '@vendor/bower-asset',
+    '@npm'   => '@vendor/npm-asset',
+  ],
+  'components' => [
+    'request'      => ['cookieValidationKey' => '1234'],
+    'cache'        => ['class' => 'yii\caching\FileCache'],
+    'user'         => [
+      'identityClass'   => 'app\models\User',
+      'enableAutoLogin' => true,
     ],
-    'components' => [
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ]
+    'errorHandler' => ['errorAction' => 'site/error'],
+    'mailer'       => [
+      'class'            => Mailer::class,
+      'viewPath'         => '@app/mail',
+      'useFileTransport' => true
+    ],
+    'log'          => [
+      'traceLevel' => YII_DEBUG ? 3 : 0,
+      'targets'    => [
+        [
+          'class'  => 'yii\log\FileTarget',
+          'levels' => ['error', 'warning'],
+        ],
+      ],
+    ],
+    'db'           => $db,
+    'urlManager'   => [
+      'enablePrettyUrl' => true,
+      'showScriptName'  => false,
+      'rules'           => []
     ]
+  ],
+  'params'     => $params,
+  'modules'    => ['gii' => $gii]
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
-    ];
+  // configuration adjustments for 'dev' environment
+  $config['bootstrap'][] = 'debug';
+  $config['modules']['debug'] = [
+    'class'     => 'yii\debug\Module',
+    // uncomment the following to add your IP if you are not connecting from localhost.
+    //'allowedIPs' => ['127.0.0.1', '::1'],
+    'traceLine' => function ($options, $panel) {
+      $filePath = $options['file'];
+      if (StringHelper::startsWith($filePath, Yii::$app->basePath)) {
+        $filePath = '~/repos/game-generator' . substr($filePath, strlen(Yii::$app->basePath));
+      }
+      return strtr('<a href="ide://open?url=file://{file}&line={line}">{text}</a>', ['{file}' => $filePath]);
+    },
+  ];
 }
 
 return $config;
