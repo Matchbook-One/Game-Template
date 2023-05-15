@@ -22,6 +22,6 @@ const repository = titleCase(order.repo === '' ? order.moduleID : order.repo);
 const moduleName = noDash(order.moduleID);
 const namespace = order.namespace.endsWith('\\') ? `${order.namespace}${moduleName}\\` : `${order.namespace}\\${moduleName}\\`;
 const icon = order.icon.startsWith('fa-') ? order.icon : `fa-${order.icon}`;
-const content = `php ./yii gii/game --moduleID="${order.moduleID}" --namespace=${namespace} --icon=${icon}`;
+const content = `php ./yii gii/game --moduleID="${order.moduleID}" --namespace="${namespace}\\" --icon=${icon} --interactive=0`;
 
 fs.writeFileSync('generate.sh', content);
