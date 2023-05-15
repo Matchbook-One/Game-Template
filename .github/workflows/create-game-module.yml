@@ -2,7 +2,8 @@ name: Create a new Game Module
 
 on:
   issues:
-    types: opened
+    types:
+      - opened
 
 concurrency: 'main'
 
@@ -25,18 +26,27 @@ jobs:
 
       - run: cat data.json
 
-      # - run: node ./place-order.js
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          command: |
+            ./yii gii/game \
+            --moduleID=${{ steps.issue-parser.outputs.issueparser_moduleID }} \
+            --namespace=${{ steps.issue-parser.outputs.issueparser_namespace }} \
+            --icon=${{ steps.issue-parser.outputs.issueparser_icon }}
 
-      # - name: Commit changes
-      #   shell: bash
-      #   run: |
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
-      #     git config --global user.name "github-actions[bot]" && \
+          # - run: node ./place-order.js
+
+          # - name: Commit changes
+          #   shell: bash
+          #   run: |
+          #     git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+          #     git config --global user.name "github-actions[bot]" && \
           # git add README.md && \
           # git commit -m 'Place order' && \
           # git push
 
-      # - uses: peter-evans/close-issue@v3
+
+        # - uses: peter-evans/close-issue@v3
         # with:
-          # comment: Pizza time! Check out the <a href="../">README</a>.
- 
+        # comment: Pizza time! Check out the <a href="../">README</a>.

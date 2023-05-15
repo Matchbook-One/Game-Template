@@ -616,6 +616,7 @@ body:
       required: false
 
   - type: checkboxes
+    id: confirm
     attributes:
       label: I acknowledge that submitting this issue will create a new repository!
       options:
