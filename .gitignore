@@ -1,7 +1,3 @@
-# phpstorm project files
-.idea
-!.idea/*
-
 # netbeans project files
 nbproject
 
@@ -18,9 +14,6 @@ Thumbs.db
 
 # composer itself is not needed
 composer.phar
-
-# composer lock
-composer.lock
 
 # Mac DS_Store Files
 .DS_Store
