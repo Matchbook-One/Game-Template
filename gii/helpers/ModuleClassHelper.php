@@ -17,38 +17,43 @@ class ModuleClassHelper extends Component
   /** @var ModuleGenerator */
   public ModuleGenerator $root;
 
-  public function getIncludes()
-  {
-    $result = [
-      'Yii',
-      'yii\helpers\Url'
-    ];
-
-    if ($this->root->isContentContainerModule()) {
-
-      $result[] = 'humhub\modules\content\components\ContentContainerActiveRecord';
-
-      if ($this->root->isSpaceModule) {
-        $result[] = 'humhub\modules\space\models\Space';
-      }
-
-      if ($this->root->isUserModule) {
-        $result[] = 'humhub\modules\user\models\User';
-      }
-
-    }
-
-    return $result;
-  }
-
   public function getNameSpace(): string
   {
-    return $this->root->getClassNamespace();
+    return $this->getClassNamespace();
   }
 
-  /*public function getSuperClass()
-  {
-    return $this->root->isContentContainerModule() ? 'humhub\modules\content\components\ContentContainerModule' : 'humhub\components\Module';
-  }*/
 
+  public function getID(): string
+  {
+    return mb_strtolower($this->getGameName());
+  }
+
+  public function getGameName(): string
+  {
+    $name = $this->root->moduleID;
+    $pattern = '/-/';
+    $array = array_map('ucfirst', preg_split($pattern, $name));
+    return join('', $array);
+  }
+
+  /**
+   * @param ?string $suffix
+   * @return string the controller namespace of the module.
+   */
+  public function getClassNamespace(?string $suffix = null): string
+  {
+    $namespace = $this->root->namespace . mb_strtolower($this->getGameName());
+    return $suffix ? "$namespace\\$suffix" : $namespace;
+  }
+
+  public function getModuleName(): string
+  {
+    return "{$this->getGameName()}Module";
+  }
+
+  public function getAlias(string $folder = null): string
+  {
+
+    return $folder ? "@{$this->getID()}/$folder" : "@{$this->getID()}";
+  }
 }

@@ -6,10 +6,10 @@ use fhnw\gii\generators\game\ModuleGenerator;
 ?>
 {
   "id": <?= $generator->moduleID ?>,
-  "name": <?= ucfirst($generator->moduleID) ?>,
+  "name": <?= $generator->moduleClass->getGameName() ?>,
   "description": "",
   "keywords": [],
-  "version": "0.0.0",
+  "version": "1.0.0",
   "humhub": {
     "minVersion": "1.18.0"
   },

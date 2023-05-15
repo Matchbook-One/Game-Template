@@ -1,27 +1,29 @@
 <?php
 
 use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\helpers\Comment;
 
 /* @var $generator ModuleGenerator */
 
+echo "<?php\n\n";
+echo Comment::fileComment($generator->moduleClass->getGameName());
 ?>
-<?= "<?php\n"; ?>
 
-namespace <?= $generator->getClassNamespace('assets') ."\n"?>
+namespace <?= $generator->moduleClass->getClassNamespace('assets') ."\n"?>
 
 use fhnw\modules\gamecenter\assets\GameCenterAssets;
 use humhub\components\assets\AssetBundle;
 use yii\web\View;
 
 /**
-* The class <?= $generator->getGameName() ?>Asset
+* The class <?= $generator->moduleClass->getGameName() ?>Asset
 */
-class <?= $generator->getGameName() ?>Asset extends AssetBundle
+class <?= $generator->moduleClass->getGameName() ?>Asset extends AssetBundle
 {
 
   /** @var array $css */
   public $css = [
-    'css/<?= $generator->moduleID ?>.css'
+    'css/<?= $generator->moduleClass->getID() ?>.css'
   ];
 
   /** @var array $depends */
@@ -32,7 +34,7 @@ class <?= $generator->getGameName() ?>Asset extends AssetBundle
 
   /** @var array $js */
   public $js = [
-    'js/<?= $generator->moduleID ?>.js'
+    'js/<?= $generator->moduleClass->getID() ?>.js'
   ];
 
   /** @var int $jsPosition */
@@ -44,5 +46,5 @@ class <?= $generator->getGameName() ?>Asset extends AssetBundle
   ];
 
   /** @var string $sourcePath */
-  public $sourcePath = '@<?= $generator->moduleID ?>/resources';
+  public $sourcePath = '<?= $generator->moduleClass->getAlias('resources') ?>';
 }

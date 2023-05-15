@@ -9,10 +9,9 @@ use fhnw\gii\widgets\IconSelect;
 
 ?>
 <div class="module-form">
-  <?= $form->field($generator, 'namespace'); ?>
-  <?= $form->field($generator, 'moduleID'); ?>
+  <?= $form->field($generator, 'namespace') ?>
+  <?= $form->field($generator, 'moduleID') ?>
   <?= IconSelect::widget(['model' => $generator, 'attribute' => 'icon']) ?>
-
 
   <?= $form->field($generator, 'outputPath'); ?>
 

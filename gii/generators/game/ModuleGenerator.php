@@ -6,14 +6,11 @@
 namespace fhnw\gii\generators\game;
 
 use fhnw\gii\helpers\ModuleClassHelper;
+use fhnw\gii\models\Author;
 use Yii;
 use yii\gii\CodeFile;
 use yii\gii\Generator;
-use function array_map;
 use function array_merge;
-use function join;
-use function mb_strtolower;
-use function preg_split;
 
 /**
  *
@@ -41,7 +38,7 @@ class ModuleGenerator extends Generator
    */
   public ModuleClassHelper $moduleClass;
 
-  public function init()
+  public function init(): void
   {
     parent::init();
     $this->moduleClass = new ModuleClassHelper(['root' => $this]);
@@ -67,8 +64,6 @@ class ModuleGenerator extends Generator
     return array_merge(parent::rules(), [
       [['moduleID', 'namespace'], 'trim'],
       [['moduleID', 'namespace', 'outputPath'], 'required'],
-      //[['isSpaceModule', 'isUserModule'], 'boolean'],
-      //[['contentContainerName', 'contentContainerDescription', 'icon'], 'string'],
       [
         ['moduleID'],
         'match',
@@ -125,10 +120,8 @@ class ModuleGenerator extends Generator
       'module.json.php',
       'Module.php',
       'Events.php',
-      //'controllers/AdminController.php',
       'controllers/IndexController.php',
-      'views/index/index.php',
-      // 'views/admin/index.php',
+      'views/index/index.php'
     ];
   }
 
@@ -141,7 +134,7 @@ class ModuleGenerator extends Generator
     return [
       new CodeFile($this->getOutputPath('config.php'), $this->render('config.php')),
       new CodeFile($this->getOutputPath('module.json'), $this->render('module.json.php')),
-      new CodeFile($this->getOutputPath('Module.php'), $this->render('Module.php')),
+      new CodeFile($this->getOutputPath($this->moduleClass->getModuleName() . '.php'), $this->render('Module.php')),
       new CodeFile($this->getOutputPath('Events.php'), $this->render('Events.php')),
       new CodeFile($this->getOutputPath('controllers/AdminController.php'), $this->render('controllers/AdminController.php')),
       new CodeFile($this->getOutputPath('controllers/IndexController.php'), $this->render('controllers/IndexController.php')),
@@ -149,7 +142,13 @@ class ModuleGenerator extends Generator
       new CodeFile($this->getOutputPath('views/index/index.php'), $this->render('views/index/index.php')),
       // new CodeFile($this->getOutputPath('views/layouts/default.php'), $this->render('views/layouts/default.php')),
       new CodeFile($this->getOutputPath('assets/Assets.php'), $this->render('assets/Assets.php')),
-      new CodeFile($this->getOutputPath("resources/js/$this->moduleID.js"), $this->render('resources/js/game.js.php'))
+      new CodeFile($this->getOutputPath("resources/js/{$this->moduleClass->getID()}.js"), $this->render('resources/js/game.js.php')),
+      new CodeFile($this->getOutputPath('resources/js/humhub.d.ts'), $this->render('resources/js/humhub.d.ts.php')),
+      new CodeFile($this->getOutputPath("resources/css/{$this->moduleClass->getID()}.css"), $this->render('resources/css/game.css')),
+      new CodeFile($this->getOutputPath("resources/scss/{$this->moduleClass->getID()}.scss"), $this->render('resources/scss/game.scss')),
+      new CodeFile($this->getOutputPath('package.json'), $this->render('package.json.php')),
+      new CodeFile($this->getOutputPath('translate.json'), $this->render('translate.php')),
+      new CodeFile($this->getOutputPath('eslint.config.js'), $this->render('eslint.config.js'))
     ];
   }
 
@@ -159,34 +158,7 @@ class ModuleGenerator extends Generator
    */
   public function getOutputPath(string $file = ''): string
   {
-    return Yii::getAlias("$this->outputPath/{$this->getID()}/$file");
+    return Yii::getAlias("$this->outputPath/{$this->moduleClass->getID()}/$file");
   }
 
-  public function getID(): string
-  {
-    return mb_strtolower($this->getGameName());
-  }
-
-  public function getGameName(): string
-  {
-    $name = $this->moduleID;
-    $pattern = '/-/';
-    $array = array_map('ucfirst', preg_split($pattern, $name));
-    return join('', $array);
-  }
-
-  /**
-   * @param ?string $suffix
-   * @return string the controller namespace of the module.
-   */
-  public function getClassNamespace(?string $suffix = null): string
-  {
-    $namespace = $this->namespace . mb_strtolower($this->getGameName());
-    return $suffix ? "$namespace\\$suffix" : $namespace;
-  }
-
-  public function getModuleName(): string
-  {
-    return "{$this->getGameName()}Module";
-  }
 }

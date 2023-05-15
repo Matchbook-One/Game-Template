@@ -22,29 +22,26 @@ jobs:
         with:
           template-path: .github/ISSUE_TEMPLATE/create-game-module.yml
 
-      - run: echo '${{ steps.issue-parser.outputs.jsonString }}' > data.json
+      - name: save results
+        run: echo '${{ steps.issue-parser.outputs.jsonString }}' > data.json
 
-      - run: cat data.json
+      - run: node make.js
 
       - name: Install dependencies
         uses: php-actions/composer@v6
-        with:
-          command: |
-            ./yii gii/game \
-            --moduleID=${{ steps.issue-parser.outputs.issueparser_moduleID }} \
-            --namespace=${{ steps.issue-parser.outputs.issueparser_namespace }} \
-            --icon=${{ steps.issue-parser.outputs.issueparser_icon }}
+
+      - run: generate.sh
 
           # - run: node ./place-order.js
 
           # - name: Commit changes
           #   shell: bash
           #   run: |
-          #     git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
-          #     git config --global user.name "github-actions[bot]" && \
-          # git add README.md && \
-          # git commit -m 'Place order' && \
-          # git push
+        #     git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+        #     git config --global user.name "github-actions[bot]" && \
+        # git add README.md && \
+        # git commit -m 'Place order' && \
+        # git push
 
 
         # - uses: peter-evans/close-issue@v3

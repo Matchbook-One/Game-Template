@@ -1,17 +1,15 @@
 <?php
 
 use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\helpers\Comment;
 
 /* @var $generator ModuleGenerator */
 
 echo "<?php\n\n";
+echo Comment::fileComment($generator->moduleClass->getGameName());
 ?>
-/**
- * @package <?= $generator->getGameName() . "\n" ?>
- * @author  {{USER_NAME}} <{{USER_MAIL}}>
- */
 
-namespace <?= $generator->getClassNamespace() ?>;
+namespace <?= $generator->moduleClass->getClassNamespace() ?>;
 
 use Yii;
 use yii\base\Event;
@@ -29,7 +27,7 @@ class Events
   public static function onAdminMenuInit(Event $event): void
   {
     $config = [
-      'label'     => '<?= $generator->getGameName() ?>',
+      'label'     => '<?= $generator->moduleClass->getGameName() ?>',
       'url'       => Url::to(['/<?= $generator->moduleID ?>/admin']),
       'group'     => 'manage',
       'icon'      => '<i class="fa <?= $generator->icon ?>"></i>',
@@ -51,7 +49,7 @@ class Events
   public static function onTopMenuInit($event): void
   {
     $config = [
-      'label'     => '<?= $generator->getGameName() ?>',
+      'label'     => '<?= $generator->moduleClass->getGameName() ?>',
       'icon'      => '<i class="fa <?= $generator->icon ?>"></i>',
       'url'       => Url::to(['/<?= $generator->moduleID ?>/index']),
       'sortOrder' => 99999,

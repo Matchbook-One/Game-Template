@@ -1,7 +1,14 @@
+<?php
+use fhnw\gii\generators\game\ModuleGenerator;
+
+/** @var $generator ModuleGenerator */
+
+?>
 {
-  "name": "{{GAME}}",
+  "name": "<?= $generator->moduleID ?>",
   "version": "1.0.0",
   "scripts": {
+    'scss': 'scss resources/scss:resources/css',
     "lint": "eslint"
   },
   "type": "module",

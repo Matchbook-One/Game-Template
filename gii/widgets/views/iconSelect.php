@@ -601,8 +601,8 @@ $faIcons = [
 ?>
 
 <div class="form-group">
-  <label class="control-label" for="<?= $formName ?>"><?= $model->getAttributeLabel($attribute) ?></label>
-  <select class='selectpicker form-control' name="<?= $formName ?>">
+  <label class="control-label" for="<?= $formName ?>"><?= $model->getAttributeLabel($attribute) ?> <i id="icon"></i></label>
+  <select class='select-picker form-control' name="<?= $formName ?>">
     <?php foreach ($faIcons as $name => $value): ?>
 
       <option class="" value="<?= $name; ?>" <?php if ($model->icon == $name): ?>selected='selected'<?php endif; ?>>
@@ -616,7 +616,7 @@ $faIcons = [
 <script>
   const formatState = state => state.id ? $(`<span><i class="fa ${state.element.value}"></i> ${state.text}</span>`) : state.text;
 
-  $(".selectpicker")
+  $(".select-picker")
       .select2({
         templateResult: formatState,
         templateSelection: formatState

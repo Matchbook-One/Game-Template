@@ -7,7 +7,7 @@ use fhnw\gii\generators\game\ModuleGenerator;
 echo "<?php\n\n";
 ?>
 
-namespace <?= $generator->getClassNamespace('controllers') ?>;
+namespace <?= $generator->moduleClass->getClassNamespace('controllers') ?>;
 
 use humhub\components\Controller;
 

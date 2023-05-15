@@ -8,21 +8,21 @@ use fhnw\gii\generators\game\ModuleGenerator;
 <?= "<?php\n\n"; ?>
 
 /**
-* @package <?= $generator->getGameName() . "\n" ?>
+* @package <?= $generator->moduleClass->getGameName() . "\n" ?>
 * @var \humhub\modules\ui\view\components\View $this
 */
 
-use <?= $generator->getClassNamespace('assets') . '\\' . $generator->getGameName() . 'Asset'; ?>;
-use <?= $generator->getClassNamespace().'\\' . $generator->getGameName() ?>Module;
+use <?= $generator->moduleClass->getClassNamespace('assets') . '\\' . $generator->moduleClass->getGameName() . 'Asset'; ?>;
+use <?= $generator->moduleClass->getClassNamespace().'\\' . $generator->moduleClass->getGameName() ?>Module;
 
-<?= $generator->getGameName() ?>Assets::register($this);
+<?= $generator->moduleClass->getGameName() ?>Assets::register($this);
 
-$module = <?= $generator->getModuleName() ?>::getInstance();
+$module = <?= $generator->moduleClass->getModuleName() ?>::getInstance();
 $game = $module->getGame();
 
-$this->registerCss('<?= $generator->moduleID ?>');
+$this->registerCss('<?= $generator->moduleClass->getID() ?>');
 
-$this->registerJsConfig('<?= $generator->moduleID ?>', []);
+$this->registerJsConfig('<?= $generator->moduleClass->getID() ?>', []);
 <?= '?>' ?>
 
 <div class="container">

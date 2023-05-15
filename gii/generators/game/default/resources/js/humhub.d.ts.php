@@ -1,3 +1,7 @@
+<?php
+use fhnw\gii\generators\game\ModuleGenerator;
+
+?>
 import * as $ from 'jQuery'
 
 declare namespace humhub {
@@ -6,7 +10,7 @@ declare namespace humhub {
    * All log functions accept up to three arguments:
    *
    * @param {string} text The actual message (or text key)
-   * @param {any} details Details about the message this could be an js object an error or a client response object
+   * @param {any} details Details about the message this could be an js object an error, or a client response object
    * @param {boolean} setStatus A flag, which will trigger a global `humhub:modules:log:setStatus` event. This can be used to trigger the status bar for providing user feedback.
    * @returns {void}
    */
