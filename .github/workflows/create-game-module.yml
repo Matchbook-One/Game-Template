@@ -1,51 +1,82 @@
-name: Create a new Game Module
+name: Init Project
 
-on:
-  issues:
-    types:
-      - opened
-
-concurrency: 'main'
+on: create
 
 jobs:
-  create:
+  setup:
+    name: Reinitialize repository
     runs-on: ubuntu-latest
+    env:
+      REPO_SETUP_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
     steps:
+      - name: Do not run scaffolding on template repository
+        shell: bash
+        # This workflow runs when the `cookiecutter.json` file is modified.
+        # This is the trick to re-init a repository, but we don't want to
+        # run this action if this file is modified in the origin template repository.
+        #
+        # Using the GitHub rest API allows us to identify if the current repository
+        # is a template repository or not.
+        run: |
+          curl --silent -X GET \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.baptiste-preview+json" \
+            https://api.github.com/repos/$GITHUB_REPOSITORY \
+            | jq --exit-status '.is_template == false';
+
       - uses: actions/checkout@v3
-
-      - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          # Committing workflow files using the regular GITHUB_TOKEN will fail with
+          # `Git Error: Refusing to allow a GitHub App to create or update a workflow without workflows permission`.
+          # This is by design to prevent third-parties from adding malicious workflow files.
+          #
+          # Generate a new personal access token with the workflow `scope` does the trick.
+          # Checkout my blog post https://stefanbuck.com/blog for alternative options
+          token: ${{ env.REPO_SETUP_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - uses: stefanbuck/github-issue-praser@v3
-        id: issue-parser
-        with:
-          template-path: .github/ISSUE_TEMPLATE/create-game-module.yml
+      - uses: php-actions/composer@v6
 
-      - name: save results
-        run: echo '${{ steps.issue-parser.outputs.jsonString }}' > data.json
+      - name: Scaffolding repository
+        run: php ./yii gii/game --moduleID="${{ github.event.repository.name }}" --interactive=0
 
-      - run: node make.js
+      - name: Prepare root directory
+        shell: bash
+        # Remove all files and folder except .git/ and result/
+        run: |
+          find ./ -maxdepth 1 \
+          ! -name '.git' \
+          ! -name 'result' \
+          ! -name '.' \
+          ! -exec rm -rf {} +
 
-      - name: Install dependencies
-        uses: php-actions/composer@v6
+      - name: Move files to root
+        shell: bash
+        # The result/ folder contains a single folder, which is the generated project by yii.
+        # We want to move all the project files into the root directory, so we can reinitialize git in the next step
+        run: |
+          rsync -r ./result/*/ . && \
+          rm -rf ./result/
 
-      - run: |
-          chmod +x ./generate.sh && \
-          ./generate.sh
+      - name: Reinitialize git repository
+        shell: bash
+        # Reinitialize git after scaffolding this repository.
+        # We use `git checkout --orphan` to create a branch in a git init-like state.
+        # By force pushing this as `main` we end up with a new clean git history.
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+          git config --global user.name "github-actions[bot]" && \
+          git checkout --orphan temp-branch && \
+          git add . && \
+          git commit -m 'Initial commit' && \
+          git push origin temp-branch:main -f
 
-        # - run: node ./place-order.js
-
-        # - name: Commit changes
-        #   shell: bash
-        #   run: |
-        #     git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
-        #     git config --global user.name "github-actions[bot]" && \
-        # git add README.md && \
-        # git commit -m 'Place order' && \
-        # git push
-
-
-        # - uses: peter-evans/close-issue@v3
-        # with:
-        # comment: Pizza time! Check out the <a href="../">README</a>.
+      - name: Remove secret REPO_SETUP_TOKEN
+        # After reinitializing the repository, we can remove the `REPO_SETUP_TOKEN` secret.
+        shell: bash
+        if: ${{ env.REPO_SETUP_TOKEN }}
+        run: |
+          curl \
+            -X DELETE --fail \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ env.REPO_SETUP_TOKEN }}" \
+            https://api.github.com/repos/$GITHUB_REPOSITORY/actions/secrets/REPO_SETUP_TOKEN
