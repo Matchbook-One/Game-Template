@@ -16,7 +16,7 @@ const titleCase = (string) => string.split('-')
  * @param {string} string
  * @returns {string}
  */
-const noDash = (string) => string.replace('-', '');
+const noDash = (string) => string.replaceAll('-', '');
 
 const repository = titleCase(order.repo === '' ? order.moduleID : order.repo);
 const moduleName = noDash(order.moduleID);
