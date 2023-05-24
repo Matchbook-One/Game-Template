@@ -1,6 +1,10 @@
 name: Init Project
 
-on: create
+on:
+  - create
+
+permissions:
+  contents: write
 
 jobs:
   setup:
@@ -8,21 +12,22 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_SETUP_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Do not run scaffolding on template repository
         shell: bash
-        # This workflow runs when the `cookiecutter.json` file is modified.
-        # This is the trick to re-init a repository, but we don't want to
-        # run this action if this file is modified in the origin template repository.
-        #
-        # Using the GitHub rest API allows us to identify if the current repository
-        # is a template repository or not.
+        # Using the GitHub rest API allows us to identify if the current repository is a template repository or not.
         run: |
           curl --silent -X GET \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.baptiste-preview+json" \
             https://api.github.com/repos/$GITHUB_REPOSITORY \
             | jq --exit-status '.is_template == false';
+
+      - name: downcase REPO
+        run: |
+          DIR=$(basename $(pwd))
+          echo "REPO=${DIR,,}" >> ${GITHUB_ENV}
 
       - uses: actions/checkout@v3
         with:
@@ -32,18 +37,18 @@ jobs:
           #
           # Generate a new personal access token with the workflow `scope` does the trick.
           # Checkout my blog post https://stefanbuck.com/blog for alternative options
-          token: ${{ env.REPO_SETUP_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ env.REPO_SETUP_TOKEN || env.GITHUB_TOKEN }}
 
       - uses: php-actions/composer@v6
 
       - name: Scaffolding repository
-        run: php ./yii gii/game --moduleID="${{ github.event.repository.name }}" --interactive=0
+        run: php ./yii gii/game --moduleID="${REPO}" --interactive=0
 
       - name: Prepare root directory
         shell: bash
         # Remove all files and folder except .git/ and result/
         run: |
-          find ./ -maxdepth 1 \
+          sudo find ./ -maxdepth 1 \
           ! -name '.git' \
           ! -name 'result' \
           ! -name '.' \
