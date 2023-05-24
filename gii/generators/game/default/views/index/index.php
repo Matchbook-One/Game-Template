@@ -1,28 +1,28 @@
 <?php
 
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
-/* @var $generator ModuleGenerator */
+/* @var $generator GameModuleGenerator */
 
 ?>
 <?= "<?php\n\n"; ?>
 
 /**
-* @package <?= $generator->moduleClass->getGameName() . "\n" ?>
-* @var \humhub\modules\ui\view\components\View $this
-*/
+ * @package <?= $generator->getGameName() . "\n" ?>
+ * @var \humhub\modules\ui\view\components\View $this
+ */
 
-use <?= $generator->moduleClass->getClassNamespace('assets') . '\\' . $generator->moduleClass->getGameName() . 'Asset'; ?>;
-use <?= $generator->moduleClass->getClassNamespace().'\\' . $generator->moduleClass->getGameName() ?>Module;
+use <?= $generator->getClassNamespace('assets') . '\\' . $generator->getGameName() . 'Assets'; ?>;
+use <?= $generator->getClassNamespace().'\\' . $generator->getGameName() ?>Module;
 
-<?= $generator->moduleClass->getGameName() ?>Assets::register($this);
+<?= $generator->getGameName() ?>Assets::register($this);
 
-$module = <?= $generator->moduleClass->getModuleName() ?>::getInstance();
+$module = <?= $generator->getModuleName() ?>::getInstance();
 $game = $module->getGame();
 
-$this->registerCss('<?= $generator->moduleClass->getID() ?>');
+$this->registerCss('<?= $generator->getID() ?>');
 
-$this->registerJsConfig('<?= $generator->moduleClass->getID() ?>', [
+$this->registerJsConfig('<?= $generator->getID() ?>', [
   'assetUrl'  => $module->getAssetsUrl(),
   'player'    => Yii::$app->user->id
 ]);

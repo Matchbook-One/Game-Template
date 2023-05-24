@@ -13,7 +13,9 @@
 
 use yii\base\Model;
 use yii\gii\GiiAsset;
+use yii\web\JqueryAsset;
 
+JqueryAsset::register($this);
 GiiAsset::register($this);
 
 $faIcons = [

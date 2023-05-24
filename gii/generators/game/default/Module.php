@@ -1,17 +1,17 @@
 <?php
 
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 use fhnw\gii\helpers\Comment;
 
-/** @var ModuleGenerator $generator */
+/** @var GameModuleGenerator $generator */
 
 
 echo "<?php\n\n";
-echo Comment::fileComment($generator->moduleClass->getGameName());
+echo Comment::fileComment($generator->getGameName());
 
 ?>
 
-namespace <?= $generator->moduleClass->getClassNamespace() ?>;
+namespace <?= $generator->getClassNamespace() ?>;
 
 use fhnw\modules\gamecenter\components\GameModule;
 use humhub\modules\content\components\ContentContainerActiveRecord;
@@ -23,7 +23,7 @@ use yii\helpers\Url;
  * @property-read string[] $contentContainerTypes
  * @property-read string   $configUrl
  */
-class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
+class <?= $generator->getModuleName() ?> extends GameModule
 {
 
   /** @return void */
@@ -37,15 +37,15 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
    * Translates a message to the specified language.
    *
    * @param string   $category the message category.
-   * @param string   $message  the message to be translated.
-   * @param string[] $params   the parameters that will be used to replace the corresponding placeholders in the message.
+   * @param string   $message the message to be translated.
+   * @param string[] $params the parameters that will be used to replace the corresponding placeholders in the message.
    * @param ?string  $language the language code (e.g. `en-US`, `en`).
    *
    * @return string the translated message.
    */
   public static function t(string $category, string $message, array $params = [], string $language = null): string
   {
-    return Yii::t("<?=$generator->moduleClass->getID() ?>/$category", $message, $params, $language);
+    return Yii::t("<?=$generator->getID() ?>/$category", $message, $params, $language);
   }
 
   /**
@@ -55,11 +55,11 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
   public function getAchievementConfig(): array
   {
     throw new \Exception('not implemented')
-      /* return [
+      /* return [[
         'name' => 'first-game',
         'title' => 'Win your first game',
         'description' => 'Win your first game'
-      ]*/
+      ]]*/
   }
 
   /**
@@ -68,7 +68,7 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
    */
   public function getConfigUrl(): string
   {
-    return Url::to(['/<?= $generator->moduleID ?>/admin']);
+    return Url::to(['/<?= $generator->getModuleID() ?>/admin']);
   }
 
   /**
@@ -79,7 +79,7 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
    */
   public function getContentContainerDescription(ContentContainerActiveRecord $container): string
   {
-    return <?= $generator->moduleClass->getModuleName() ?>::t('base', 'description');
+    return <?= $generator->getModuleName() ?>::t('base', 'description');
   }
 
   /**
@@ -92,7 +92,7 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
    */
   public function getContentContainerName(ContentContainerActiveRecord $container): string
   {
-    return <?= $generator->moduleClass->getModuleName() ?>::t('base', 'name');
+    return <?= $generator->getModuleName() ?>::t('base', 'name');
   }
 
   /**
@@ -112,8 +112,8 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
   public function getGameConfig()
   {
     return [
-      'title'       => '<?= $generator->moduleClass->getModuleName() ?>',
-      'description' => 'The Game <?= $generator->moduleClass->getModuleName() ?>'
+      'title'       => '<?= $generator->getModuleName() ?>',
+      'description' => 'The Game <?= $generator->getModuleName() ?>'
     ];
   }
 
@@ -122,10 +122,10 @@ class <?= $generator->moduleClass->getModuleName() ?> extends GameModule
    */
   private function registerTranslations(): void
   {
-    Yii::$app->i18n->translations['<?= $generator->moduleClass->getID() ?>*'] = [
+    Yii::$app->i18n->translations['<?= $generator->getID() ?>*'] = [
       'class'          => 'yii\i18n\PhpMessageSource',
       'sourceLanguage' => 'en',
-      'basePath'       => '<?= $generator->moduleClass->getAlias('messages') ?>'
+      'basePath'       => '<?= $generator->getAlias('messages') ?>'
     ];
   }
 }

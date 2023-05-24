@@ -1,6 +1,5 @@
 <?php
 
-use _generated\UnitTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 
@@ -21,7 +20,7 @@ use Codeception\Lib\Friend;
  */
 class UnitTester extends Actor
 {
-  use UnitTesterActions;
+  use _generated\UnitTesterActions;
 
   /**
    * Define custom actions here

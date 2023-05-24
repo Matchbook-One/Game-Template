@@ -3,9 +3,15 @@
 # suite for unit (internal) tests.
 # RUN `build` COMMAND AFTER ADDING/REMOVING MODULES.
 
-actor: UnitTester
+actor:       UnitTester
+
 modules:
   enabled:
     - Asserts
     - Yii2:
-        part: [ orm, email, fixtures ]
+        part:
+          - orm
+          - email
+          - fixtures
+
+error_level: E_ALL & ~E_STRICT & ~E_DEPRECATED

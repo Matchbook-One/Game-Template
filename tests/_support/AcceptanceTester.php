@@ -1,6 +1,5 @@
 <?php
 
-use _generated\FunctionalTesterActions;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 
@@ -19,7 +18,11 @@ use Codeception\Lib\Friend;
  *
  * @SuppressWarnings(PHPMD)
  */
-class FunctionalTester extends Actor
+class AcceptanceTester extends Actor
 {
-  use FunctionalTesterActions;
+  use _generated\AcceptanceTesterActions;
+
+  /**
+   * Define custom actions here
+   */
 }

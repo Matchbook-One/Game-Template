@@ -32,5 +32,5 @@ const config = [
       semi: ['error', 'never']
     }
   }
-]
+];
 export default config

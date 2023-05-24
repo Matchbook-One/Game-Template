@@ -1,12 +1,12 @@
 <?php
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
-/** @var $generator ModuleGenerator */
+/** @var $generator GameModuleGenerator */
 
 ?>
 {
   "id": <?= $generator->moduleID ?>,
-  "name": <?= $generator->moduleClass->getGameName() ?>,
+  "name": <?= $generator->getGameName() ?>,
   "description": "",
   "keywords": [],
   "version": "1.0.0",

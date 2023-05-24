@@ -1,11 +1,11 @@
 <?php
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
-/** @var $generator ModuleGenerator */
+/** @var $generator GameModuleGenerator */
 
 ?>
 {
-  "name": "<?= $generator->moduleID ?>",
+  "name": "<?= $generator->getModuleID() ?>",
   "version": "1.0.0",
   "scripts": {
     'scss': 'scss resources/scss:resources/css',

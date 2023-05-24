@@ -1,5 +1,5 @@
 <?php
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
 ?>
 import * as $ from 'jQuery'

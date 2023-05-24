@@ -1,19 +1,19 @@
 <?php
 
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
-/** @var  ModuleGenerator $generator */
+/** @var  GameModuleGenerator $generator */
 
 echo "<?php\n\n";
 ?>
-use <?= $generator->moduleClass->getClassNamespace().'\\'.$generator->moduleClass->getModuleName() ?>;
-use <?= $generator->moduleClass->getClassNamespace() ?>\Events;
+use <?= $generator->getClassNamespace().'\\'.$generator->getModuleName() ?>;
+use <?= $generator->getClassNamespace() ?>\Events;
 use humhub\modules\admin\widgets\AdminMenu;
 
 return [
-	'id' => '<?= $generator->moduleClass->getID(); ?>',
-	'class' => <?= $generator->moduleClass->getModuleName(); ?>::class,
-	'namespace' => '<?= $generator->moduleClass->getClassNamespace(); ?>',
+	'id' => '<?= $generator->getModuleID(); ?>',
+	'class' => <?= $generator->getModuleName(); ?>::class,
+	'namespace' => '<?= $generator->getClassNamespace(); ?>',
   'events'    => [
     [
       'class'    => AdminMenu::class,

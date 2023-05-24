@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 $gii = require __DIR__ . '/gii.php';
 
 $config = [
-  'id'                  => 'basic-console',
+  'id'                  => 'game-generator-console',
   'basePath'            => dirname(__DIR__),
   'bootstrap'           => ['log', 'gii'],
   'controllerNamespace' => 'app\commands',
@@ -15,19 +15,16 @@ $config = [
     '@tests' => '@app/tests',
   ],
   'components'          => [
-    'cache' => ['class' => 'yii\caching\FileCache'],
-    'log'   => [
+    'log' => [
       'targets' => [
         [
           'class'  => 'yii\log\FileTarget',
           'levels' => ['error', 'warning'],
         ],
       ],
-    ],
-    'db'    => $db,
+    ]
   ],
-  'modules'             => ['gii' => $gii],
-  'params'              => $params
+  'modules'             => ['gii' => $gii]
   /*
   'controllerMap' => [
       'fixture' => [ // Fixture generation command line.

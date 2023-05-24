@@ -1,7 +1,7 @@
 <?php
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
-/** @var $generator ModuleGenerator */
+/** @var $generator GameModuleGenerator */
 echo "<?php\n"
 ?>
 /**
@@ -19,10 +19,10 @@ echo "<?php\n"
 return [
   'color'            => true,
   'languages'        => ['de', 'en-UK',],
-  'messagePath'      => '<?= $generator->moduleClass->getAlias('messages') ?>',
+  'messagePath'      => '<?= $generator->getAlias('messages') ?>',
   'sourceLanguage'   => 'en-UK',
-  'sourcePath'       => '<?= $generator->moduleClass->getAlias() ?>',
-  'translator'       => ['<?= $generator->moduleClass->getModuleName() ?>::t'],
+  'sourcePath'       => '<?= $generator->getAlias() ?>',
+  'translator'       => ['<?= $generator->getModuleName() ?>::t'],
   'overwrite'        => true,
   'removeUnused'     => false,
   'markUnused'       => true,

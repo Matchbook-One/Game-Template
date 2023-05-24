@@ -1,15 +1,15 @@
 <?php
 
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 use fhnw\gii\helpers\Comment;
 
-/* @var $generator ModuleGenerator */
+/* @var $generator GameModuleGenerator */
 
 echo "<?php\n\n";
-echo Comment::fileComment($generator->moduleClass->getGameName());
+echo Comment::fileComment($generator->getGameName());
 ?>
 
-namespace <?= $generator->moduleClass->getClassNamespace() ?>;
+namespace <?= $generator->getClassNamespace() ?>;
 
 use Yii;
 use yii\base\Event;
@@ -27,13 +27,13 @@ class Events
   public static function onAdminMenuInit(Event $event): void
   {
     $config = [
-      'label'     => '<?= $generator->moduleClass->getGameName() ?>',
-      'url'       => Url::to(['/<?= $generator->moduleID ?>/admin']),
+      'label'     => '<?= $generator->getGameName() ?>',
+      'url'       => Url::to(['/<?= $generator->getModuleID() ?>/admin']),
       'group'     => 'manage',
       'icon'      => '<i class="fa <?= $generator->icon ?>"></i>',
       'sortOrder' => 99999,
       'isActive'  => (Yii::$app->controller->module &&
-                      Yii::$app->controller->module->id === '<?= $generator->moduleID ?>' &&
+                      Yii::$app->controller->module->id === '<?= $generator->getModuleID() ?>' &&
                       Yii::$app->controller->id === 'admin')
     ];
     $event->sender->addItem($config);
@@ -49,12 +49,12 @@ class Events
   public static function onTopMenuInit($event): void
   {
     $config = [
-      'label'     => '<?= $generator->moduleClass->getGameName() ?>',
+      'label'     => '<?= $generator->getGameName() ?>',
       'icon'      => '<i class="fa <?= $generator->icon ?>"></i>',
-      'url'       => Url::to(['/<?= $generator->moduleID ?>/index']),
+      'url'       => Url::to(['/<?= $generator->getModuleID() ?>/index']),
       'sortOrder' => 99999,
       'isActive'  => (Yii::$app->controller->module &&
-                      Yii::$app->controller->module->id === '<?= $generator->moduleID ?>' &&
+                      Yii::$app->controller->module->id === '<?= $generator->getModuleID() ?>' &&
                       Yii::$app->controller->id === 'index')
     ];
     $event->sender->addItem($config);

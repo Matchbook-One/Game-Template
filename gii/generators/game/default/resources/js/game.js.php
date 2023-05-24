@@ -1,19 +1,19 @@
 <?php
 /** @noinspection JSNonStrictModeUsed */
-use fhnw\gii\generators\game\ModuleGenerator;
+use fhnw\gii\generators\game\GameModuleGenerator;
 
-/* @var $generator ModuleGenerator */
+/* @var $generator GameModuleGenerator */
 
 ?>
 /** @namespace humhub */
-humhub.module('<?= $generator->moduleID ?>', (module, req, $) => {
+humhub.module('<?= $generator->getModuleID() ?>', (module, req, $) => {
 
   const event = req('event');
-  const gamecenter = req('gamecenter');
+  const gamecenter = req('gamecenter').getInstance(module.id);
 
   /** @returns {void} */
   function init() {
-    console.log('<?= $generator->moduleID ?> module activated')
+    console.log('<?= $generator->getModuleID() ?> module activated')
   }
 
   /**
@@ -27,7 +27,7 @@ humhub.module('<?= $generator->moduleID ?>', (module, req, $) => {
               .then((res) => {
                 // Do something with the result
               })
-              .catch(function (e) {
+              .catch((e) => {
                 // Do something with the the error
                 module.log.error(e, undefined, true)
               })

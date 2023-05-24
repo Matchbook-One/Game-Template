@@ -1,8 +1,9 @@
 <?php
 
+namespace fhnw\tests;
+
 use Codeception\Actor;
 use Codeception\Lib\Friend;
-
 
 /**
  * Inherited Methods
@@ -19,11 +20,7 @@ use Codeception\Lib\Friend;
  *
  * @SuppressWarnings(PHPMD)
  */
-class AcceptanceTester extends Actor
+class FunctionalTester extends Actor
 {
-  use _generated\AcceptanceTesterActions;
-
-  /**
-   * Define custom actions here
-   */
+  use _generated\FunctionalTesterActions;
 }

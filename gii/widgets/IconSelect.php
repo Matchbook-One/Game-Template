@@ -9,7 +9,8 @@
 
 namespace fhnw\gii\widgets;
 
-use yii\base\{Model, Widget};
+use Yii;
+use yii\base\{InvalidConfigException, Model, Widget};
 
 /**
  * User Administration Menu
@@ -19,16 +20,27 @@ use yii\base\{Model, Widget};
 class IconSelect extends Widget
 {
 
-  /** @var Model */
-  public Model $model;
   public string $attribute;
 
-  public function run()
+  /** @var Model */
+  public Model $model;
+
+  /**
+   * @return string
+   */
+  public function run(): string
   {
-    return $this->render('iconSelect', [
-      'model'     => $this->model,
-      'attribute' => $this->attribute,
-      'formName'  => "{$this->model->formName()}[$this->attribute]"
-    ]);
+    try {
+      return $this->render('iconSelect', [
+        'model'     => $this->model,
+        'attribute' => $this->attribute,
+        'formName'  => "{$this->model->formName()}[$this->attribute]"
+      ]);
+    }
+    catch (InvalidConfigException $e) {
+      Yii::error($e);
+    }
+
+    return '';
   }
 }
