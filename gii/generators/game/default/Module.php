@@ -1,29 +1,29 @@
 <?php
+declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
 use fhnw\gii\helpers\Comment;
+use fhnw\gii\helpers\PhpPreset;
 
 /** @var GameModuleGenerator $generator */
 
-
-echo "<?php\n\n";
-echo Comment::fileComment($generator->getGameName());
-
 ?>
 
-namespace <?= $generator->getClassNamespace() ?>;
+<?= PhpPreset::startTag()?>
 
-use fhnw\modules\gamecenter\components\GameModule;
-use humhub\modules\content\components\ContentContainerActiveRecord;
-use humhub\modules\user\models\User;
-use Yii;
-use yii\helpers\Url;
+<?= PhpPreset::namespace($generator->getNamespace())?>
+<?= PhpPreset::use('fhnw\modules\gamecenter\components','GameModule') ?>
+<?= PhpPreset::use('humhub\modules\content\components','ContentContainerActiveRecord') ?>
+<?= PhpPreset::use('humhub\modules\user\models','User') ?>
+<?= PhpPreset::use('humhub\modules\user\models','User') ?>
+<?= PhpPreset::use(null,'Yii') ?>
+<?= PhpPreset::use('yii\helpers','Url') ?>
 
 /**
  * @property-read string[] $contentContainerTypes
  * @property-read string   $configUrl
  */
-class <?= $generator->getModuleName() ?> extends GameModule
+class <?= $generator->getModuleName() ?> <?= PhpPreset::extends('GameModule') ?>
 {
 
   /** @return void */

@@ -1,19 +1,20 @@
 <?php
+declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
+use fhnw\gii\helpers\PhpPreset;
 
-/* @var $generator GameModuleGenerator */
+/* @var GameModuleGenerator $generator  */
 
 ?>
-<?= "<?php\n\n"; ?>
+<?= PhpPreset::startTag() ?>
 
 /**
- * @package <?= $generator->getGameName() . "\n" ?>
  * @var \humhub\modules\ui\view\components\View $this
  */
 
-use <?= $generator->getClassNamespace('assets') . '\\' . $generator->getGameName() . 'Assets'; ?>;
-use <?= $generator->getClassNamespace().'\\' . $generator->getGameName() ?>Module;
+<?= PhpPreset::use($generator->getNamespace(),$generator->getModuleName()) ?>
+<?= PhpPreset::use($generator->getNamespace('assets'),$generator->getGameName() . 'Assets') ?>
 
 <?= $generator->getGameName() ?>Assets::register($this);
 
@@ -26,7 +27,7 @@ $this->registerJsConfig('<?= $generator->getID() ?>', [
   'assetUrl'  => $module->getAssetsUrl(),
   'player'    => Yii::$app->user->id
 ]);
-<?= '?>' ?>
+<?= PhpPreset::endTag() ?>
 
 <div class="container">
   <!-- -->

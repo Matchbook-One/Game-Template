@@ -1,41 +1,34 @@
 <?php
+declare(strict_types=1);
 
 namespace fhnw\gii\components;
 
-use fhnw\gii\behaviors\ModuleIDBehavior;
-use fhnw\gii\behaviors\NamespaceBehavior;
 use Yii;
 use yii\gii\Generator;
 use yii\helpers\ArrayHelper;
 
 /**
- * @property bool $autoID
- * @property string $moduleID
  * @property array $templates
  * @property string $template
  * @property bool $enableI18N
  * @property string $messageCategory
- * @property string $namespace
- * @method getID(): string
- * @method getModuleID(): string
- * @method getNamespace(): string
- * @method getClassNamespace(?string $suffix = null): string
- * @method getAlias(?string $folder = null): string
  */
 abstract class ModuleGenerator extends Generator
 {
   private const MODULE_PATTERN = '/^(?:[a-z]|[a-z][a-z-]*[a-z])$/';
   private const NAMESPACE_PATTERN = '/^(?:[a-zA-Z_]\w+\\\)+$/';
 
+  public string $moduleID = '';
+
+  public string $namespace = 'fhnw\\modules\\';
+
   /** @var string outputPath */
   public string $outputPath = 'result';
 
-  public function init(): void
-  {
-    parent::init();
-    $this->ensureBehaviors();
-  }
-
+  /**
+   * @inheritdoc
+   * @return array<string,string>
+   */
   public function attributeLabels(): array
   {
     $labels = [
@@ -48,12 +41,54 @@ abstract class ModuleGenerator extends Generator
   }
 
   /**
-   * @return Array<string>
-   * @inheritdoc
+   * @param ?string $folder
+   *
+   * @return string
    */
-  public function behaviors(): array
+  public function getAlias(?string $folder = null): string
   {
-    return [ModuleIDBehavior::class, NamespaceBehavior::class];
+    /** @noinspection PhpVariableNamingConventionInspection */
+    $id = $this->getID();
+
+    return $folder ? "@$id/$folder" : "@$id";
+  }
+
+  /**
+   * @return string
+   */
+  public function getID(): string
+  {
+    return str_replace('-', '', $this->getModuleID());
+  }
+
+  /**
+   * @return string
+   */
+  public function getModuleID(): string
+  {
+    return $this->moduleID;
+  }
+
+  /**
+   * @param string $id
+   *
+   * @return void
+   */
+  public function setModuleID(string $id): void
+  {
+    $this->moduleID = $id;
+  }
+
+  /**
+   * @param ?string $suffix
+   *
+   * @return string the controller namespace of the module.
+   */
+  public function getNamespace(?string $suffix = null): string
+  {
+    $namespace = "$this->namespace{$this->getID()}";
+
+    return $suffix ? "$namespace\\$suffix" : $namespace;
   }
 
   /**
@@ -61,7 +96,7 @@ abstract class ModuleGenerator extends Generator
    *
    * @return string
    */
-  public function getOutputPath(string $file = ''): string { return Yii::getAlias("{$this->outputPath}/{$this->getID()}/$file"); }
+  public function getOutputPath(string $file = ''): string { return Yii::getAlias("$this->outputPath/{$this->getID()}/$file"); }
 
   /**
    * @inheritdoc
@@ -108,9 +143,9 @@ abstract class ModuleGenerator extends Generator
 
   /**
    * @inheritDoc
-   * @return array
+   * @return string[]
    */
-  function stickyAttributes(): array
+  public function stickyAttributes(): array
   {
     $sticky = ['namespace'];
 

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 use fhnw\gii\generators\game\GameModuleGenerator;
 
 ?>
@@ -173,7 +174,7 @@ declare namespace humhub {
    * ## Dependencies
    *
    * The core modules are initialized in a specific order to provide the required dependencies for each module.
-   * The order is given by the order of module calls and in case of core modules configured in the API's AssetBundle.
+   * The order is given by the order of module calls and in case of core modules configured in the APIs AssetBundle.
    *
    * A module can be received by using the required function within a module function.
    * You can either depend on a module at initialization time or within your functions or use the lazy flag of the require function.

@@ -1,16 +1,13 @@
 <?php
+declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
-use fhnw\gii\helpers\Comment;
+use fhnw\gii\helpers\Comment;use fhnw\gii\helpers\PhpPreset;
 
-/* @var $generator GameModuleGenerator */
-
-echo "<?php\n\n";
-echo Comment::fileComment($generator->getGameName());
+/* @var GameModuleGenerator$generator  */
 ?>
-
-namespace <?= $generator->getClassNamespace('assets') ."\n"?>
-
+<?= PhpPreset::startTag() ?>
+<?= PhpPreset::namespace($generator->getNamespace('assets')) ?>
 use fhnw\modules\gamecenter\assets\GameCenterAssets;
 use humhub\components\assets\AssetBundle;
 use yii\web\View;

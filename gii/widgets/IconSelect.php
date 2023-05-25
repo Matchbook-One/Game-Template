@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * @link      https://www.humhub.org/
@@ -27,6 +28,7 @@ class IconSelect extends Widget
 
   /**
    * @return string
+   * @noinspection PhpMethodNamingConventionInspection
    */
   public function run(): string
   {

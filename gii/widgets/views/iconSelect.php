@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @link      https://www.humhub.org/
  * @copyright Copyright (c) 2017 HumHub GmbH & Co. KG
@@ -7,7 +8,7 @@
 
 /**
  * @var string $formName
- * @var Model  $model
+ * @var Model $model
  * @var string $attribute
  */
 
@@ -18,7 +19,8 @@ use yii\web\JqueryAsset;
 JqueryAsset::register($this);
 GiiAsset::register($this);
 
-$faIcons = [
+/** @noinspection SpellCheckingInspection */
+$fa_icons = [
   'fa-adjust'                => '&#xf042',
   'fa-adn'                   => '&#xf170',
   'fa-align-center'          => '&#xf037',
@@ -605,7 +607,7 @@ $faIcons = [
 <div class="form-group">
   <label class="control-label" for="<?= $formName ?>"><?= $model->getAttributeLabel($attribute) ?> <i id="icon"></i></label>
   <select class='select-picker form-control' name="<?= $formName ?>">
-    <?php foreach ($faIcons as $name => $value): ?>
+    <?php foreach ($fa_icons as $name => $value): ?>
 
       <option class="" value="<?= $name; ?>" <?php if ($model->icon == $name): ?>selected='selected'<?php endif; ?>>
         <?= (str_starts_with($name, 'fa')) ? substr($name, 3) : $name ?>

@@ -1,15 +1,16 @@
 <?php
+declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
 use fhnw\gii\helpers\Comment;
 
-/* @var $generator GameModuleGenerator */
+/* @var GameModuleGenerator$generator  */
 
 echo "<?php\n\n";
 echo Comment::fileComment($generator->getGameName());
 ?>
 
-namespace <?= $generator->getClassNamespace() ?>;
+namespace <?= $generator->getNamespace() ?>;
 
 use Yii;
 use yii\base\Event;

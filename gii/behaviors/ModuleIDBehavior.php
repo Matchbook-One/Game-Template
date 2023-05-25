@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace fhnw\gii\behaviors;
 
@@ -16,16 +17,27 @@ class ModuleIDBehavior extends GeneratorBehavior
 
   public string $moduleID = '';
 
+  /**
+   * @param string|null $folder
+   *
+   * @return string
+   */
   public function getAlias(string $folder = null): string
   {
     return $folder ? "@{$this->getID()}/$folder" : "@{$this->getID()}";
   }
 
+  /**
+   * @return string
+   */
   public function getID(): string
   {
     return str_replace('-', '', $this->getModuleID());
   }
 
+  /**
+   * @return string
+   */
   public function getModuleID(): string
   {
     return $this->moduleID;
@@ -36,9 +48,9 @@ class ModuleIDBehavior extends GeneratorBehavior
    */
   public function setModuleID(string $id): void
   {
-    if ($this->autoID)
+    if ($this->autoID) {
       $id = strtolower($id);
+    }
     $this->moduleID = $id;
   }
-
 }

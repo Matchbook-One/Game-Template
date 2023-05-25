@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
 use fhnw\gii\generators\game\GameModuleGenerator;
 
-/** @var $generator GameModuleGenerator */
+/** @var GameModuleGenerator$generator  */
 echo "<?php\n"
 ?>
 /**

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace fhnw\gii\behaviors;
 
@@ -15,15 +16,8 @@ class NamespaceBehavior extends GeneratorBehavior
   public string $namespace = 'fhnw\\modules\\';
 
   /**
-   * @param ?string $suffix
-   *
-   * @return string the controller namespace of the module.
+   * @return string
    */
-  public function getClassNamespace(?string $suffix = null): string
-  {
-    return $suffix ? $this->getNamespace() . "\\$suffix" : $this->getNamespace();
-  }
-
   public function getNamespace(): string
   {
     if ($this->owner->hasMethod('getModuleID')) {

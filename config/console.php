@@ -1,7 +1,5 @@
 <?php
 
-$params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
 $gii = require __DIR__ . '/gii.php';
 
 $config = [
@@ -12,7 +10,7 @@ $config = [
   'aliases'             => [
     '@bower' => '@vendor/bower-asset',
     '@npm'   => '@vendor/npm-asset',
-    '@tests' => '@app/tests',
+    '@tests' => '@app/tests'
   ],
   'components'          => [
     'log' => [
@@ -20,8 +18,8 @@ $config = [
         [
           'class'  => 'yii\log\FileTarget',
           'levels' => ['error', 'warning'],
-        ],
-      ],
+        ]
+      ]
     ]
   ],
   'modules'             => ['gii' => $gii]

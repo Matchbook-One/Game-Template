@@ -2,32 +2,33 @@ name: Init Project
 
 on:
   - create
+  - workflow_dispatch
 
 permissions:
   contents: write
 
 jobs:
   setup:
-    name: Reinitialize repository
+    name:    Reinitialize repository
     runs-on: ubuntu-latest
     env:
       REPO_SETUP_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN:     ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Do not run scaffolding on template repository
+      - name:  Do not run scaffolding on template repository
         shell: bash
         # Using the GitHub rest API allows us to identify if the current repository is a template repository or not.
-        run: |
-          curl --silent -X GET \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.baptiste-preview+json" \
-            https://api.github.com/repos/$GITHUB_REPOSITORY \
-            | jq --exit-status '.is_template == false';
+        run:   |
+               curl --silent -X GET \
+                 -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                 -H "Accept: application/vnd.github.baptiste-preview+json" \
+                 https://api.github.com/repos/$GITHUB_REPOSITORY \
+                 | jq --exit-status '.is_template == false';
 
       - name: downcase REPO
-        run: |
-          DIR=$(basename $(pwd))
-          echo "REPO=${DIR,,}" >> ${GITHUB_ENV}
+        run:  |
+              DIR=$(basename $(pwd))
+              echo "REPO=${DIR,,}" >> ${GITHUB_ENV}
 
       - uses: actions/checkout@v3
         with:
@@ -42,46 +43,46 @@ jobs:
       - uses: php-actions/composer@v6
 
       - name: Scaffolding repository
-        run: php ./yii gii/game --moduleID="${REPO}" --interactive=0
+        run:  php ./yii gii/game --moduleID="${REPO}" --interactive=0
 
-      - name: Prepare root directory
+      - name:  Prepare root directory
         shell: bash
         # Remove all files and folder except .git/ and result/
-        run: |
-          sudo find ./ -maxdepth 1 \
-          ! -name '.git' \
-          ! -name 'result' \
-          ! -name '.' \
-          ! -exec rm -rf {} +
+        run:   |
+               sudo find ./ -maxdepth 1 \
+               ! -name '.git' \
+               ! -name 'result' \
+               ! -name '.' \
+               ! -exec rm -rf {} +
 
-      - name: Move files to root
+      - name:  Move files to root
         shell: bash
         # The result/ folder contains a single folder, which is the generated project by yii.
         # We want to move all the project files into the root directory, so we can reinitialize git in the next step
-        run: |
-          rsync -r ./result/*/ . && \
-          rm -rf ./result/
+        run:   |
+               rsync -r ./result/*/ . && \
+               rm -rf ./result/
 
-      - name: Reinitialize git repository
+      - name:  Reinitialize git repository
         shell: bash
         # Reinitialize git after scaffolding this repository.
         # We use `git checkout --orphan` to create a branch in a git init-like state.
         # By force pushing this as `main` we end up with a new clean git history.
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
-          git config --global user.name "github-actions[bot]" && \
-          git checkout --orphan temp-branch && \
-          git add . && \
-          git commit -m 'Initial commit' && \
-          git push origin temp-branch:main -f
+        run:   |
+               git config --global user.email "github-actions[bot]@users.noreply.github.com" && \
+               git config --global user.name "github-actions[bot]" && \
+               git checkout --orphan temp-branch && \
+               git add . && \
+               git commit -m 'Initial commit' && \
+               git push origin temp-branch:main -f
 
-      - name: Remove secret REPO_SETUP_TOKEN
+      - name:  Remove secret REPO_SETUP_TOKEN
         # After reinitializing the repository, we can remove the `REPO_SETUP_TOKEN` secret.
         shell: bash
-        if: ${{ env.REPO_SETUP_TOKEN }}
-        run: |
-          curl \
-            -X DELETE --fail \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ env.REPO_SETUP_TOKEN }}" \
-            https://api.github.com/repos/$GITHUB_REPOSITORY/actions/secrets/REPO_SETUP_TOKEN
+        if:    ${{ env.REPO_SETUP_TOKEN }}
+        run:   |
+               curl \
+                 -X DELETE --fail \
+                 -H "Accept: application/vnd.github.v3+json" \
+                 -H "Authorization: token ${{ env.REPO_SETUP_TOKEN }}" \
+                 https://api.github.com/repos/$GITHUB_REPOSITORY/actions/secrets/REPO_SETUP_TOKEN

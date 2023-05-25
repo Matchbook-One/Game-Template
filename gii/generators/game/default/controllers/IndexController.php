@@ -1,13 +1,14 @@
 <?php
+declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
 
-/* @var $generator GameModuleGenerator */
+/* @var GameModuleGenerator$generator  */
 
 echo "<?php\n\n";
 ?>
 
-namespace <?= $generator->getClassNamespace('controllers') ?>;
+namespace <?= $generator->getNamespace('controllers') ?>;
 
 use humhub\components\Controller;
 

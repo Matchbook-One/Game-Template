@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace fhnw\gii\components;
 
@@ -12,5 +13,5 @@ abstract class GeneratorBehavior extends Behavior
 {
   /** @var ?Generator $owner */
   public $owner;
-  
+
 }

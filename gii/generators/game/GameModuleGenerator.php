@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @author Christian Seiler <christian@christianseiler.ch>
  */
@@ -17,20 +18,22 @@ use yii\helpers\ArrayHelper;
  * @property-read string $description The detailed description of the generator.
  * @property string $outputPath
  * @property string $namespace
+ * @property string $moduleID
  * @method getID(): string
  * @method getModuleID(): string
- * @method getNamespace(): string
- * @method getClassNamespace(?string $suffix = null): string
+ * @method getNamespace(?string $suffix = null): string
  * @method getAlias(?string $folder = null): string
  */
 class GameModuleGenerator extends ModuleGenerator
 {
   public string $icon = 'fa-gamepad';
 
+  /**
+   * @inheritdoc
+   */
   public function init(): void
   {
     parent::init();
-    // $this->ensureBehaviors();
     $this->namespace = 'fhnw\\modules\\games\\';
   }
 
@@ -63,7 +66,7 @@ class GameModuleGenerator extends ModuleGenerator
       new CodeFile($this->getOutputPath('views/admin/index.php'), $this->render('views/admin/index.php')),
       new CodeFile($this->getOutputPath('views/index/index.php'), $this->render('views/index/index.php')),
       // new CodeFile($this->getOutputPath('views/layouts/default.php'), $this->render('views/layouts/default.php')),
-      new CodeFile($this->getOutputPath('assets/Assets.php'), $this->render('assets/Assets.php')),
+      new CodeFile($this->getOutputPath('assets/' . $this->getGameName() . 'Assets.php'), $this->render('assets/Assets.php')),
       new CodeFile($this->getOutputPath("resources/js/{$this->getID()}.js"), $this->render('resources/js/game.js.php')),
       new CodeFile($this->getOutputPath('resources/js/humhub.d.ts'), $this->render('resources/js/humhub.d.ts.php')),
       new CodeFile($this->getOutputPath("resources/css/{$this->getID()}.css"), $this->render('resources/css/game.css')),
@@ -74,18 +77,24 @@ class GameModuleGenerator extends ModuleGenerator
     ];
   }
 
-  /** @return string */
+  /**
+   * @return string
+   * @noinspection PhpMissingParentCallCommonInspection
+   */
   public function getDescription(): string { return 'This generator helps you to generate the skeleton code needed by a HumHub Game module.'; }
 
+  /**
+   * @return string
+   */
   public function getGameName(): string
   {
     return join('', array_map('ucfirst', explode('-', $this->getModuleID())));
   }
 
-  public function getModuleName(): string
-  {
-    return "{$this->getGameName()}Module";
-  }
+  /**
+   * @return string
+   */
+  public function getModuleName(): string { return "{$this->getGameName()}Module"; }
 
   /** @return string */
   public function getName(): string { return 'Game Module Generator'; }

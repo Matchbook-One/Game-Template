@@ -1,14 +1,15 @@
 <?php
+declare(strict_types=1);
 use fhnw\gii\generators\game\GameModuleGenerator;
 
-/** @var $generator GameModuleGenerator */
+/** @var GameModuleGenerator $generator  */
 
 ?>
 {
   "name": "<?= $generator->getModuleID() ?>",
   "version": "1.0.0",
   "scripts": {
-    'scss': 'scss resources/scss:resources/css',
+    "scss": "scss resources/scss:resources/css",
     "lint": "eslint"
   },
   "type": "module",
