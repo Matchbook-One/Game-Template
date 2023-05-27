@@ -39,25 +39,4 @@ class Events
     ];
     $event->sender->addItem($config);
   }
-
-  /**
-   * Defines what to do when the top menu is initialized.
-   *
-   * @param Event $event
-   *
-   * @return void
-   */
-  public static function onTopMenuInit($event): void
-  {
-    $config = [
-      'label'     => '<?= $generator->getGameName() ?>',
-      'icon'      => '<i class="fa <?= $generator->icon ?>"></i>',
-      'url'       => Url::to(['/<?= $generator->getModuleID() ?>/index']),
-      'sortOrder' => 99999,
-      'isActive'  => (Yii::$app->controller->module &&
-                      Yii::$app->controller->module->id === '<?= $generator->getModuleID() ?>' &&
-                      Yii::$app->controller->id === 'index')
-    ];
-    $event->sender->addItem($config);
-  }
 }

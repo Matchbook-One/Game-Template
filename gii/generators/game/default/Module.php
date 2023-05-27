@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
-use fhnw\gii\helpers\Comment;
 use fhnw\gii\helpers\PhpPreset;
 
 /** @var GameModuleGenerator $generator */
@@ -13,17 +12,17 @@ use fhnw\gii\helpers\PhpPreset;
 
 <?= PhpPreset::namespace($generator->getNamespace())?>
 <?= PhpPreset::use('fhnw\modules\gamecenter\components','GameModule') ?>
+<?= PhpPreset::use('fhnw\modules\gamecenter\components','LeaderboardType') ?>
 <?= PhpPreset::use('humhub\modules\content\components','ContentContainerActiveRecord') ?>
-<?= PhpPreset::use('humhub\modules\user\models','User') ?>
 <?= PhpPreset::use('humhub\modules\user\models','User') ?>
 <?= PhpPreset::use(null,'Yii') ?>
 <?= PhpPreset::use('yii\helpers','Url') ?>
+<?= PhpPreset::use('use yii\i18n','PhpMessageSource') ?>
 
 /**
- * @property-read string[] $contentContainerTypes
- * @property-read string   $configUrl
+ * @property-read string $configUrl
  */
-class <?= $generator->getModuleName() ?> <?= PhpPreset::extends('GameModule') ?>
+class <?= $generator->getModuleName() . PhpPreset::extends('GameModule') ?>
 {
 
   /** @return void */
@@ -50,11 +49,11 @@ class <?= $generator->getModuleName() ?> <?= PhpPreset::extends('GameModule') ?>
 
   /**
    * @inheritdoc
-   * @return array
+   * @return array<{name: string, title: string, description: string, secret?: bool, show_progress?: bool}>
    */
   public function getAchievementConfig(): array
   {
-    throw new \Exception('not implemented')
+    throw new \Exception('not implemented');
       /* return [[
         'name' => 'first-game',
         'title' => 'Win your first game',
@@ -73,47 +72,24 @@ class <?= $generator->getModuleName() ?> <?= PhpPreset::extends('GameModule') ?>
 
   /**
    * @inheritdoc
-   * @param ContentContainerActiveRecord $container unused
-   *
-   * @return string
-   */
-  public function getContentContainerDescription(ContentContainerActiveRecord $container): string
-  {
-    return <?= $generator->getModuleName() ?>::t('base', 'description');
-  }
-
-  /**
-  * @inheritdoc
-   *
-   * @param ContentContainerActiveRecord $container unused
-   *
    * @return string
    * @noinspection PhpMissingParentCallCommonInspection
    */
-  public function getContentContainerName(ContentContainerActiveRecord $container): string
+  public function getName(): string
   {
     return <?= $generator->getModuleName() ?>::t('base', 'name');
   }
 
   /**
    * @inheritdoc
-   * @return string[] valid content container classes
-   * @noinspection PhpMissingParentCallCommonInspection
+   * @return array<{title: string, description: string, tags?: string[]}>
    */
-  public function getContentContainerTypes(): array
-  {
-    return [User::class];
-  }
-
-  /**
-   * @inheritdoc
-   * @return GameConfig
-   */
+  #[ArrayShape(['title' => 'string', 'description' => 'string', 'tags' => 'string[]'])]
   public function getGameConfig()
   {
     return [
-      'title'       => '<?= $generator->getModuleName() ?>',
-      'description' => 'The Game <?= $generator->getModuleName() ?>'
+      'title'       => '<?= $generator->getGameName() ?>',
+      'description' => 'The Game <?= $generator->getGameName() ?>'
     ];
   }
 
@@ -123,9 +99,25 @@ class <?= $generator->getModuleName() ?> <?= PhpPreset::extends('GameModule') ?>
   private function registerTranslations(): void
   {
     Yii::$app->i18n->translations['<?= $generator->getID() ?>*'] = [
-      'class'          => 'yii\i18n\PhpMessageSource',
-      'sourceLanguage' => 'en',
+      'class'          => PhpMessageSource::class,
+      'sourceLanguage' => 'en-US',
       'basePath'       => '<?= $generator->getAlias('messages') ?>'
     ];
+  }
+
+  /**
+   * @return LeaderboardType[]
+   */
+  public function getGameUrl(): string
+  {
+    return Url::to(['/<?= $generator->getModuleID() ?>/index']);
+  }
+
+  /**
+   * @return string
+   */
+  public function getLeaderboardConfig(): array
+  {
+    return [];
   }
 }

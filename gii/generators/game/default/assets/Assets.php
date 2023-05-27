@@ -13,9 +13,9 @@ use humhub\components\assets\AssetBundle;
 use yii\web\View;
 
 /**
-* The class <?= $generator->getGameName() ?>Asset
+* The class <?= $generator->getGameName() ?>Assets
 */
-class <?= $generator->getGameName() ?>Asset extends AssetBundle
+class <?= $generator->getGameName() ?>Assets extends AssetBundle
 {
 
   /** @var array $css */

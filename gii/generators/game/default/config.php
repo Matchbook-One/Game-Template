@@ -17,7 +17,7 @@ return [
   'events'    => [
     [
       'class'    => AdminMenu::class,
-      'event'    => TopMenu::EVENT_INIT,
+      'event'    => AdminMenu::EVENT_INIT,
       'callback' => [Events::class, 'onAdminMenuInit']
     ]
   ]

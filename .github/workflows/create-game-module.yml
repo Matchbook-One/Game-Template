@@ -12,8 +12,7 @@ jobs:
     name:    Reinitialize repository
     runs-on: ubuntu-latest
     env:
-      REPO_SETUP_TOKEN: ${{ secrets.REPO_SETUP_TOKEN }}
-      GITHUB_TOKEN:     ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name:  Do not run scaffolding on template repository
         shell: bash
@@ -25,41 +24,32 @@ jobs:
                  https://api.github.com/repos/$GITHUB_REPOSITORY \
                  | jq --exit-status '.is_template == false';
 
-      - name: downcase REPO
+      - name: Check Out Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
         run:  |
               DIR=$(basename $(pwd))
               echo "REPO=${DIR,,}" >> ${GITHUB_ENV}
 
-      - uses: actions/checkout@v3
-        with:
-          # Committing workflow files using the regular GITHUB_TOKEN will fail with
-          # `Git Error: Refusing to allow a GitHub App to create or update a workflow without workflows permission`.
-          # This is by design to prevent third-parties from adding malicious workflow files.
-          #
-          # Generate a new personal access token with the workflow `scope` does the trick.
-          # Checkout my blog post https://stefanbuck.com/blog for alternative options
-          token: ${{ env.REPO_SETUP_TOKEN || env.GITHUB_TOKEN }}
-
-      - uses: php-actions/composer@v6
-
-      - name: Scaffolding repository
+      - name: Generate Game Files
+        uses: php-actions/composer@v6
         run:  php ./yii gii/game --moduleID="${REPO}" --interactive=0
 
       - name:  Prepare root directory
         shell: bash
-        # Remove all files and folder except .git/ and result/
         run:   |
                sudo find ./ -maxdepth 1 \
                ! -name '.git' \
+               ! -name '.github/renovate.json' \
                ! -name 'result' \
                ! -name '.' \
                ! -exec rm -rf {} +
 
       - name:  Move files to root
         shell: bash
-        # The result/ folder contains a single folder, which is the generated project by yii.
-        # We want to move all the project files into the root directory, so we can reinitialize git in the next step
         run:   |
+               rsync -r ./result/_static/ . && \
                rsync -r ./result/*/ . && \
                rm -rf ./result/
 
@@ -75,14 +65,3 @@ jobs:
                git add . && \
                git commit -m 'Initial commit' && \
                git push origin temp-branch:main -f
-
-      - name:  Remove secret REPO_SETUP_TOKEN
-        # After reinitializing the repository, we can remove the `REPO_SETUP_TOKEN` secret.
-        shell: bash
-        if:    ${{ env.REPO_SETUP_TOKEN }}
-        run:   |
-               curl \
-                 -X DELETE --fail \
-                 -H "Accept: application/vnd.github.v3+json" \
-                 -H "Authorization: token ${{ env.REPO_SETUP_TOKEN }}" \
-                 https://api.github.com/repos/$GITHUB_REPOSITORY/actions/secrets/REPO_SETUP_TOKEN
