@@ -14,7 +14,7 @@ use yii\web\View;
 /**
 * The class <?= $generator->getGameName() ?>Assets
 */
-class <?= $generator->getGameName() ?>Assets <?= PhpPreset::extends('\humhub\components\assets\AssetBundle')?>
+class <?= $generator->getGameName() ?>Assets <?= PhpPreset::extends('\fhnw\modules\gamecenter\components\GameAssets')?>
 {
 
   /** @var array $css */
