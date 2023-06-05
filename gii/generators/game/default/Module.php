@@ -7,10 +7,10 @@ use fhnw\gii\helpers\PhpPreset;
 /** @var GameModuleGenerator $generator */
 
 ?>
-
 <?= PhpPreset::startTag()?>
 
 <?= PhpPreset::namespace($generator->getNamespace())?>
+
 <?= PhpPreset::use('fhnw\modules\gamecenter\components','GameModule') ?>
 <?= PhpPreset::use('fhnw\modules\gamecenter\components','LeaderboardType') ?>
 <?= PhpPreset::use('humhub\modules\content\components','ContentContainerActiveRecord') ?>
