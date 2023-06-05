@@ -33,9 +33,6 @@ class <?= $generator->getGameName() ?>Assets <?= PhpPreset::extends('\humhub\com
     'js/<?= $generator->getID() ?>.js'
   ];
 
-  /** @var int $jsPosition */
-  public $jsPosition = View::POS_HEAD;
-
   /** @var array $publishOptions */
   public $publishOptions = [
     'forceCopy' => true // TODO: remove for production

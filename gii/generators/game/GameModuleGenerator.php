@@ -69,7 +69,7 @@ class GameModuleGenerator extends ModuleGenerator
       new CodeFile($this->getOutputPath('assets/' . $this->getGameName() . 'Assets.php'), $this->render('assets/Assets.php')),
       new CodeFile($this->getOutputPath("resources/js/{$this->getID()}.js"), $this->render('resources/js/game.js.php')),
       new CodeFile($this->getOutputPath('resources/js/humhub.d.ts'), $this->render('resources/js/humhub.d.ts.php')),
-      new CodeFile($this->getOutputPath("resources/css/{$this->getID()}.scss"), $this->render('resources/css/game.scss')),
+      new CodeFile($this->getOutputPath("resources/css/{$this->getID()}.css"), $this->render('resources/css/game.css')),
       new CodeFile($this->getOutputPath('package.json'), $this->render('package.json.php')),
       new CodeFile($this->getOutputPath('translate.json'), $this->render('translate.php')),
       new CodeFile($this->getOutputPath('eslint.config.js'), $this->render('eslint.config.js')),

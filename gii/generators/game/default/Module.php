@@ -82,14 +82,15 @@ class <?= $generator->getModuleName() . PhpPreset::extends('GameModule') ?>
 
   /**
    * @inheritdoc
-   * @return array<{title: string, description: string, tags?: string[]}>
+   * @return array<{title: string, description: string, tags: string[]}>
    */
-  #[ArrayShape(['title' => 'string', 'description' => 'string', 'tags' => '?string[]'])]
+  #[ArrayShape(['title' => 'string', 'description' => 'string', 'tags' => 'string[]'])]
   public function getGameConfig()
   {
     return [
       'title'       => '<?= $generator->getGameName() ?>',
-      'description' => 'The Game <?= $generator->getGameName() ?>'
+      'description' => 'The Game <?= $generator->getGameName() ?>',
+      'tags'        =>[]
     ];
   }
 
