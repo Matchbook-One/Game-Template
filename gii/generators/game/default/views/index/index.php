@@ -23,9 +23,7 @@ $game = $module->getGame();
 
 $this->registerCss('<?= $generator->getID() ?>');
 
-$this->registerJsConfig('<?= $generator->getID() ?>', [
-  'assetUrl'  => $module->getAssetsUrl()
-]);
+$this->registerJsConfig('<?= $generator->getID() ?>', []);
 <?= PhpPreset::endTag() ?>
 
 <div class="container">
