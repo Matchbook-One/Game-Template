@@ -24,8 +24,7 @@ $game = $module->getGame();
 $this->registerCss('<?= $generator->getID() ?>');
 
 $this->registerJsConfig('<?= $generator->getID() ?>', [
-  'assetUrl'  => $module->getAssetsUrl(),
-  'player'    => Yii::$app->user->id
+  'assetUrl'  => $module->getAssetsUrl()
 ]);
 <?= PhpPreset::endTag() ?>
 

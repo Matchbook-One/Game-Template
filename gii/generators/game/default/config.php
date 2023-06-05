@@ -1,7 +1,8 @@
 <?php
 declare(strict_types=1);
 
-use fhnw\gii\generators\game\GameModuleGenerator;use fhnw\gii\helpers\PhpPreset;
+use fhnw\gii\generators\game\GameModuleGenerator;
+use fhnw\gii\helpers\PhpPreset;
 
 /** @var  GameModuleGenerator $generator */
 ?>

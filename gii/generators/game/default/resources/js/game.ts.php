@@ -10,17 +10,14 @@ use fhnw\gii\generators\game\GameModuleGenerator;
 humhub.module('<?= $generator->getModuleID() ?>', (module, req, $) => {
 
   const event = req('event');
-  const gamecenter = req('gamecenter').shared(module.id);
+  const gamecenter: GameCenter = req('gamecenter').shared(module.id);
 
-  /** @returns {void} */
-  function init() {
+  function init(): void {
     console.log('<?= $generator->getModuleID() ?> module activated')
   }
 
-  /**
-   * @param {number} score
-   */
-  function submitScore(score) {
+  function submitScore(score: number) {
+
     gamecenter.submitScore(score)
               .then((res) => {
                 // Do something with the result
@@ -31,5 +28,5 @@ humhub.module('<?= $generator->getModuleID() ?>', (module, req, $) => {
               })
   }
 
-  module.export({init})
+  module.export({ init })
 });

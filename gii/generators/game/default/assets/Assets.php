@@ -2,20 +2,19 @@
 declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
-use fhnw\gii\helpers\Comment;use fhnw\gii\helpers\PhpPreset;
+use fhnw\gii\helpers\PhpPreset;
 
 /* @var GameModuleGenerator$generator  */
 ?>
 <?= PhpPreset::startTag() ?>
 <?= PhpPreset::namespace($generator->getNamespace('assets')) ?>
 use fhnw\modules\gamecenter\assets\GameCenterAssets;
-use humhub\components\assets\AssetBundle;
 use yii\web\View;
 
 /**
 * The class <?= $generator->getGameName() ?>Assets
 */
-class <?= $generator->getGameName() ?>Assets extends AssetBundle
+class <?= $generator->getGameName() ?>Assets <?= PhpPreset::extends('\humhub\components\assets\AssetBundle')?>
 {
 
   /** @var array $css */

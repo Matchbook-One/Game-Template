@@ -105,21 +105,45 @@ declare namespace humhub {
     (moduleNS: string, lazy?: boolean): Module,
     (moduleNS: 'client', lazy?: boolean): ClientModule
     (moduleNS: 'event', lazy?: boolean): EventModule
-    (moduleNS: 'gamecenter', lazy?: boolean): GameCenter
+    (moduleNS: 'gamecenter', lazy?: boolean): GameCenterModule
+  }
+
+  interface Leaderboard {
+    id: number
+  }
+
+  interface Achievement {
+    achievement: string
+    game: string
+    lastUpdated: string
+    percentCompleted: number
+  }
+
+  interface AchievementData {
+    achievements: Array<Achievement>
+  }
+  class GameCenterModule {
+    public shared(moduleID: string): GameCenter
   }
 
   class GameCenter {
-    constructor()
+    loadAchievements(): Promise<AchievementData>
 
-    submitScore(moduleId: string, score: number): Promise<unknown>
+    updateAchievement(achievement: Achievement): Promise<{ achievement: Achievement }>
 
-    startGame(moduleId: string): Promise<unknown>
+    startGame(): Promise<void>
 
-    endGame(moduleId: string): Promise<unknown>
+    endGame(): Promise<void>
 
-    report(moduleId: string, option: string, value: unknown): Promise<unknown>
+    report(option: string, value: unknown): Promise<void>
 
-    share(moduleId: string, text: string): Promise<unknown>
+    submitScore(score: number): Promise<void>
+
+    getHighScore(): Promise<{ highscore: number }>
+
+    share(message: string): Promise<void>
+
+    loadLeaderboards(): Promise<Array<Leaderboard>>
   }
 
   /**

@@ -5,15 +5,11 @@ use fhnw\gii\generators\game\GameModuleGenerator;
 use fhnw\gii\helpers\PhpPreset;
 
 /* @var GameModuleGenerator $generator  */
-
-echo PhpPreset::startTag();
 ?>
+<?= PhpPreset::startTag() ?>
+<?= PhpPreset::namespace($generator->getNamespace('controllers')) ?>
 
-namespace <?= $generator->getNamespace('controllers') ?>;
-
-use humhub\components\Controller;
-
-class AdminController extends Controller
+class AdminController <?= PhpPreset::extends('\humhub\components\Controller')?>
 {
   /** @return string */
   public function actionIndex(): string

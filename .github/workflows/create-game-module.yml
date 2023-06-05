@@ -28,12 +28,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           token: ${{ env.GITHUB_TOKEN }}
+
+      - name: Set Module ID from Repository name
         run:  |
               DIR=$(basename $(pwd))
               echo "REPO=${DIR,,}" >> ${GITHUB_ENV}
 
-      - name: Generate Game Files
+      - name: Install Dependencies
         uses: php-actions/composer@v6
+
+      - name: Generate Game Files
         run:  php ./yii gii/game --moduleID="${REPO}" --interactive=0
 
       - name:  Prepare root directory

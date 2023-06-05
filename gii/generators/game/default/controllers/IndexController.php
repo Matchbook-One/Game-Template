@@ -2,17 +2,15 @@
 declare(strict_types=1);
 
 use fhnw\gii\generators\game\GameModuleGenerator;
+use fhnw\gii\helpers\PhpPreset;
 
 /* @var GameModuleGenerator$generator  */
 
-echo "<?php\n\n";
 ?>
+<?= PhpPreset::startTag() ?>
+<?= PhpPreset::namespace($generator->getNamespace('controllers')) ?>
 
-namespace <?= $generator->getNamespace('controllers') ?>;
-
-use humhub\components\Controller;
-
-class IndexController extends Controller
+class IndexController <?= PhpPreset::extends('\humhub\components\Controller')?>
 {
   /** @return string */
   public function actionIndex(): string

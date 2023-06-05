@@ -17,7 +17,7 @@ use fhnw\gii\helpers\PhpPreset;
 <?= PhpPreset::use('humhub\modules\user\models','User') ?>
 <?= PhpPreset::use(null,'Yii') ?>
 <?= PhpPreset::use('yii\helpers','Url') ?>
-<?= PhpPreset::use('use yii\i18n','PhpMessageSource') ?>
+<?= PhpPreset::use('yii\i18n','PhpMessageSource') ?>
 
 /**
  * @property-read string $configUrl
@@ -84,7 +84,7 @@ class <?= $generator->getModuleName() . PhpPreset::extends('GameModule') ?>
    * @inheritdoc
    * @return array<{title: string, description: string, tags?: string[]}>
    */
-  #[ArrayShape(['title' => 'string', 'description' => 'string', 'tags' => 'string[]'])]
+  #[ArrayShape(['title' => 'string', 'description' => 'string', 'tags' => '?string[]'])]
   public function getGameConfig()
   {
     return [
